@@ -1,0 +1,8 @@
+name: spigot-i18l
+author: Sytm
+version: ${version}
+main: de.md5lukas.i18l.spigot.Main
+
+commands:
+  language:
+    description: The priamry way to switch languages

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JsonSchemaMappingsProjectConfiguration">
+    <state>
+      <map>
+        <entry key="bungee-plugin">
+          <value>
+            <SchemaInfo>
+              <option name="name" value="bungee-plugin" />
+              <option name="relativePathToSchema" value="http://json.schemastore.org/bungee-plugin" />
+              <option name="applicationDefined" value="true" />
+              <option name="patterns">
+                <list>
+                  <Item>
+                    <option name="path" value="bungee-plugin/src/main/resources/plugin.yml" />
+                  </Item>
+                </list>
+              </option>
+            </SchemaInfo>
+          </value>
+        </entry>
+      </map>
+    </state>
+  </component>
+</project>
