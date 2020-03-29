@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -35,7 +36,7 @@ abstract class SQLConfigAdapterBase implements ConfigAdapter {
     @NotNull
     protected final Logger logger;
     @NotNull
-    protected final String host, username, password, database, table;
+    protected final String host, username, password, database, table, language;
     protected final int port;
     protected final boolean useSSL;
     @Nullable
@@ -44,7 +45,7 @@ abstract class SQLConfigAdapterBase implements ConfigAdapter {
     protected Map<String, String> cache;
 
     public SQLConfigAdapterBase(@NotNull String host, int port, @NotNull String username, @NotNull String password, @NotNull String database, boolean useSSL,
-            @NotNull String table, @NotNull Logger logger) {
+            @NotNull String table, @NotNull String language, @NotNull Logger logger) {
         this.host = host;
         this.port = port;
         this.username = username;
@@ -52,6 +53,7 @@ abstract class SQLConfigAdapterBase implements ConfigAdapter {
         this.database = database;
         this.table = table;
         this.useSSL = useSSL;
+        this.language = language;
         this.logger = logger;
     }
 
@@ -85,7 +87,9 @@ abstract class SQLConfigAdapterBase implements ConfigAdapter {
             this.cache = new HashMap<>();
             if (connection != null) {
                 try {
-                    ResultSet resultSet = connection.createStatement().executeQuery("SELECT path, value FROM " + this.table);
+                    PreparedStatement statement = connection.prepareStatement("SELECT path, value FROM " + this.table + " WHERE language=?");
+                    statement.setString(1, language);
+                    ResultSet resultSet = statement.executeQuery();
                     while (resultSet.next()) {
                         cache.put(resultSet.getString("path"), resultSet.getString("value"));
                     }

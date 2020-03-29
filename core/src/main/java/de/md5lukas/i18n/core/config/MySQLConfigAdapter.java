@@ -28,8 +28,8 @@ import java.util.logging.Logger;
 public class MySQLConfigAdapter extends SQLConfigAdapterBase {
 
     public MySQLConfigAdapter(@NotNull String host, int port, @NotNull String username, @NotNull String password, @NotNull String database, boolean useSSL,
-            @NotNull String table, @NotNull Logger logger) {
-        super(host, port, username, password, database, useSSL, table, logger);
+            @NotNull String table, @NotNull String language, @NotNull Logger logger) {
+        super(host, port, username, password, database, useSSL, table, language, logger);
     }
 
     @Override

@@ -40,8 +40,8 @@ public class PostgreSQLConfigAdapter extends SQLConfigAdapterBase {
     private final File postgreSQLFile;
 
     public PostgreSQLConfigAdapter(@NotNull String host, int port, @NotNull String username, @NotNull String password, @NotNull String database, boolean useSSL,
-            @NotNull String table, @NotNull Logger logger, @Nullable File postgreSQLFile) {
-        super(host, port, username, password, database, useSSL, table, logger);
+            @NotNull String table, @NotNull String language, @NotNull Logger logger, @Nullable File postgreSQLFile) {
+        super(host, port, username, password, database, useSSL, table, language, logger);
         this.postgreSQLFile = postgreSQLFile;
     }
 
