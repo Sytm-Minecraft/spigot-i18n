@@ -16,31 +16,36 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.core.spigot.config;
+package de.md5lukas.i18n.spigot;
 
-import de.md5lukas.i18n.core.config.ConfigAdapter;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.jetbrains.annotations.NotNull;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
+public class LanguageCommand implements CommandExecutor {
 
-public class SpigotConfigAdapter implements ConfigAdapter {
+    private final Main main;
 
-    private final FileConfiguration configuration;
-
-    public SpigotConfigAdapter(FileConfiguration configuration) {
-        this.configuration = configuration;
+    public LanguageCommand(Main main) {
+        this.main = main;
     }
 
     @Override
-    public String getString(@NotNull String path) {
-        return this.configuration.getString(path);
-    }
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 0) {
 
-    @NotNull
-    @Override
-    public Collection<String> listAllKeys() {
-        return configuration.getKeys(true).stream().filter(configuration::isString).collect(Collectors.toList());
+        } else {
+            switch (args[0].toLowerCase()) {
+                case "help":
+                    // TODO: show help + LICENSE and source
+                case "setdefault":
+                    // TODO: set default
+                    break;
+                default:
+                    // TODO: set language
+                    break;
+            }
+        }
+        return true;
     }
 }

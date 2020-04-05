@@ -19,7 +19,6 @@
 package de.md5lukas.i18n.core;
 
 import de.md5lukas.i18n.core.config.ConfigAdapter;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,8 +35,8 @@ public final class MessageConfigExpander {
      * @param closingDelimiter The closing part of the enclosure that marks a string as a variable
      * @return all string entries with the variables expanded
      */
-    @NotNull
-    public static Map<String, String> expandVariables(@NotNull ConfigAdapter config, @NotNull String openingDelimiter, @NotNull String closingDelimiter) {
+
+    public static Map<String, String> expandVariables(ConfigAdapter config, String openingDelimiter, String closingDelimiter) {
         Map<String, String> all = new HashMap<>();
         for (String key : config.listAllKeys()) {
             String value = config.getString(key);

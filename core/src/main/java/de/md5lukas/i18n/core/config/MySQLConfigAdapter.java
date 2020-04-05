@@ -18,8 +18,6 @@
 
 package de.md5lukas.i18n.core.config;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -27,8 +25,8 @@ import java.util.logging.Logger;
 
 public class MySQLConfigAdapter extends SQLConfigAdapterBase {
 
-    public MySQLConfigAdapter(@NotNull String host, int port, @NotNull String username, @NotNull String password, @NotNull String database, boolean useSSL,
-            @NotNull String table, @NotNull String language, @NotNull Logger logger) {
+    public MySQLConfigAdapter(String host, int port, String username, String password, String database, boolean useSSL,
+            String table, String language, Logger logger) {
         super(host, port, username, password, database, useSSL, table, language, logger);
     }
 

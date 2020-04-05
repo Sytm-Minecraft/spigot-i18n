@@ -18,9 +18,6 @@
 
 package de.md5lukas.i18n.core.config;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Collection;
 
 /**
@@ -30,17 +27,16 @@ public interface ConfigAdapter {
 
     /**
      * Get a string from the config
+     *
      * @param path the path where the string can be found
      * @return the string or <code>null</code> if not present
      */
-    @Nullable
-    String getString(@NotNull String path);
+    String getString(String path);
 
     /**
      * List all keys in the config that have a string as a value
      *
      * @return all keys
      */
-    @NotNull
     Collection<String> listAllKeys();
 }

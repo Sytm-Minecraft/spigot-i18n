@@ -16,13 +16,30 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18l.spigot;
+package de.md5lukas.i18n.spigot.config;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import de.md5lukas.i18n.core.config.ConfigAdapter;
+import org.bukkit.configuration.file.FileConfiguration;
 
-public class Main extends JavaPlugin {
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+public class SpigotConfigAdapter implements ConfigAdapter {
+
+    private final FileConfiguration configuration;
+
+    public SpigotConfigAdapter(FileConfiguration configuration) {
+        this.configuration = configuration;
+    }
 
     @Override
-    public void onEnable() {
+    public String getString(String path) {
+        return this.configuration.getString(path);
+    }
+
+
+    @Override
+    public Collection<String> listAllKeys() {
+        return configuration.getKeys(true).stream().filter(configuration::isString).collect(Collectors.toList());
     }
 }

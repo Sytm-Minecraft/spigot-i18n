@@ -16,7 +16,14 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.core.spigot;
+package de.md5lukas.i18n.spigot;
 
-public class SpigotMessageConfigExpander {
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Main extends JavaPlugin {
+
+    @Override
+    public void onEnable() {
+        getCommand("language").setExecutor(new LanguageCommand(this));
+    }
 }

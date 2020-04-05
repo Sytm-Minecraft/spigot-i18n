@@ -1,0 +1,13 @@
+# Configure the language settings provider to your liking
+settingsProvider:
+  # Available options are 'yml' and 'mysql'
+  format: yml
+
+  mysql:
+    host: 127.0.0.1
+    port: 3306
+    # Never use root for anything except managing purposes
+    username: spigot_language
+    password: password123
+    database: spigot_language
+    table: language_settings

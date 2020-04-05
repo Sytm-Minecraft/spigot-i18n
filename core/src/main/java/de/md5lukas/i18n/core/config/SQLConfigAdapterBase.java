@@ -18,9 +18,6 @@
 
 package de.md5lukas.i18n.core.config;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,19 +30,17 @@ import java.util.logging.Logger;
 
 abstract class SQLConfigAdapterBase implements ConfigAdapter {
 
-    @NotNull
+
     protected final Logger logger;
-    @NotNull
     protected final String host, username, password, database, table, language;
     protected final int port;
     protected final boolean useSSL;
-    @Nullable
     protected Connection connection;
-    @Nullable
+
     protected Map<String, String> cache;
 
-    public SQLConfigAdapterBase(@NotNull String host, int port, @NotNull String username, @NotNull String password, @NotNull String database, boolean useSSL,
-            @NotNull String table, @NotNull String language, @NotNull Logger logger) {
+    public SQLConfigAdapterBase(String host, int port, String username, String password, String database, boolean useSSL,
+            String table, String language, Logger logger) {
         this.host = host;
         this.port = port;
         this.username = username;
@@ -75,14 +70,14 @@ abstract class SQLConfigAdapterBase implements ConfigAdapter {
     }
 
     @Override
-    public final @Nullable String getString(@NotNull String path) {
+    public final String getString(String path) {
         if (cache == null)
             this.listAllKeys();
         return cache.get(path);
     }
 
     @Override
-    public final @NotNull Collection<String> listAllKeys() {
+    public final Collection<String> listAllKeys() {
         if (cache == null) {
             this.cache = new HashMap<>();
             if (connection != null) {
