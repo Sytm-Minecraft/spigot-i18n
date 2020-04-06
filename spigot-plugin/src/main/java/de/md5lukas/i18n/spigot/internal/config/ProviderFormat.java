@@ -16,14 +16,8 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.spigot;
+package de.md5lukas.i18n.spigot.internal.config;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
-public class Main extends JavaPlugin {
-
-    @Override
-    public void onEnable() {
-        getCommand("language").setExecutor(new LanguageCommand(this));
-    }
+public enum ProviderFormat {
+    YML, MYSQL
 }

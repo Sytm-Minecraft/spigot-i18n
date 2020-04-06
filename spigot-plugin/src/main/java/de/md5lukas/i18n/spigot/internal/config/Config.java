@@ -16,36 +16,32 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.spigot;
+package de.md5lukas.i18n.spigot.internal.config;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 
-public class LanguageCommand implements CommandExecutor {
+import java.util.Arrays;
 
-    private final Main main;
+public class Config {
 
-    public LanguageCommand(Main main) {
-        this.main = main;
+    private ProviderFormat format;
+    private MySQLSettings mySQLSettings;
+
+    public void load(FileConfiguration configuration) {
+        format = Arrays.stream(ProviderFormat.values()).filter(value -> value.name().equalsIgnoreCase(configuration.getString("settingsProvider.format")))
+                .findFirst().orElse(ProviderFormat.YML);
+        if (ProviderFormat.MYSQL.equals(format)) {
+            mySQLSettings = new MySQLSettings(configuration.getConfigurationSection("settingsProvider.mysql"));
+        } else {
+            mySQLSettings = null;
+        }
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0) {
+    public ProviderFormat getFormat() {
+        return format;
+    }
 
-        } else {
-            switch (args[0].toLowerCase()) {
-                case "help":
-                    // TODO: show help + LICENSE and source
-                case "setdefault":
-                    // TODO: set default
-                    break;
-                default:
-                    // TODO: set language
-                    break;
-            }
-        }
-        return true;
+    public MySQLSettings getMySQLSettings() {
+        return mySQLSettings;
     }
 }

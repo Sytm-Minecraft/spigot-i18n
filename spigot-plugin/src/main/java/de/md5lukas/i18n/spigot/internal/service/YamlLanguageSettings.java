@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.spigot.internal;
+package de.md5lukas.i18n.spigot.internal.service;
 
 import com.google.common.base.Preconditions;
 import de.md5lukas.i18n.spigot.service.LanguageSettings;

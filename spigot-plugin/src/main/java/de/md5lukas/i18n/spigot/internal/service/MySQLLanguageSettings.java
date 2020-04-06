@@ -16,11 +16,12 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.spigot.internal;
+package de.md5lukas.i18n.spigot.internal.service;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import de.md5lukas.i18n.spigot.internal.config.MySQLSettings;
 import de.md5lukas.i18n.spigot.service.LanguageSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -41,14 +42,14 @@ public class MySQLLanguageSettings implements LanguageSettings {
     private String defaultLanguage, consoleLanguage;
     private LoadingCache<UUID, String> playerSettingsCache;
 
-    public MySQLLanguageSettings(Plugin plugin, String host, int port, String username, String password, String database, String table) {
+    public MySQLLanguageSettings(Plugin plugin, MySQLSettings mySQLSettings) {
         this.plugin = plugin;
-        this.host = host;
-        this.port = port;
-        this.username = username;
-        this.password = password;
-        this.database = database;
-        this.table = table;
+        this.host = mySQLSettings.getHost();
+        this.port = mySQLSettings.getPort();
+        this.username = mySQLSettings.getUsername();
+        this.password = mySQLSettings.getPassword();
+        this.database = mySQLSettings.getDatabase();
+        this.table = mySQLSettings.getTable();
 
         playerSettingsCache = CacheBuilder.newBuilder()
                 .expireAfterWrite(10, TimeUnit.MINUTES)

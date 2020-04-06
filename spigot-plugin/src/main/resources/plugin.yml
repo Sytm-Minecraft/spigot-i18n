@@ -1,7 +1,7 @@
 name: spigot-i18l
 author: Sytm
 version: ${version}
-main: de.md5lukas.i18l.spigot.Main
+main: de.md5lukas.i18l.spigot.internal.Main
 
 commands:
   language:

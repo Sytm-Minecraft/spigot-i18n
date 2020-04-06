@@ -16,31 +16,36 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.core.language;
+package de.md5lukas.i18n.spigot.internal;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
-public class LanguageStore {
+public class LanguageCommand implements CommandExecutor {
 
-    private Supplier<String> defaultLanguage;
-    private Map<String, Language> loadedLanguages;
+    private final Main main;
 
-    public LanguageStore(Supplier<String> defaultLanguage) {
-        this.defaultLanguage = defaultLanguage;
-        loadedLanguages = new HashMap<>();
+    public LanguageCommand(Main main) {
+        this.main = main;
     }
 
-    public boolean isLanguageRegistered(String language) {
-        return loadedLanguages.containsKey(language.toLowerCase());
-    }
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (args.length == 0) {
 
-    public Language getLanguage(String language) {
-        return loadedLanguages.get(language == null ? defaultLanguage.get() : language);
-    }
-
-    public void registerLanguage(Language language) {
-        loadedLanguages.put(language.getLanguageKey(), language);
+        } else {
+            switch (args[0].toLowerCase()) {
+                case "help":
+                    // TODO: show help + LICENSE and source
+                case "setdefault":
+                    // TODO: set default
+                    break;
+                default:
+                    // TODO: set language
+                    break;
+            }
+        }
+        return true;
     }
 }
