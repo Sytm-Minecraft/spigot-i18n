@@ -21,14 +21,16 @@ package de.md5lukas.i18n.core;
 import de.md5lukas.i18n.core.config.ConfigAdapter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public final class MessageConfigExpander {
 
-    private static final char ESCAPE = '\\';
+    private static final String VARIABLE_PREFIX = "variable.";
 
     /**
-     * Expand all variables in a config using this method
+     * Expand all variables in a config using this method. Variables must start with <code>variable.</code> and the prefix will then be excluded from the final result
      *
      * @param config           The configuration where all the strings are located
      * @param openingDelimiter The opening part of the enclosure that marks a string as a variable
@@ -42,14 +44,16 @@ public final class MessageConfigExpander {
             String value = config.getString(key);
             all.put(key, value);
         }
-        for (String key : all.keySet()) {
-            String variable = openingDelimiter + key + closingDelimiter;
-            String replacement = all.get(key);
+
+        List<String[]> variables = all.entrySet().stream().filter(entry -> entry.getKey().startsWith(VARIABLE_PREFIX)).map(entry -> {
+            all.remove(entry.getKey());
+            return new String[]{ entry.getKey().substring(VARIABLE_PREFIX.length()).toLowerCase(), entry.getValue() };
+        }).collect(Collectors.toList());
+
+        for (String[] variable : variables) {
+            String key = openingDelimiter + variable[0] + closingDelimiter;
             for (Map.Entry<String, String> entry : all.entrySet()) {
-                if (key.equals(entry.getKey())) {
-                    continue;
-                }
-                entry.setValue(entry.getValue().replace(variable, replacement));
+                entry.setValue(entry.getValue().replace(key, variable[1]));
             }
         }
         return all;

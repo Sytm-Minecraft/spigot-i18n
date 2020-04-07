@@ -1,3 +1,33 @@
 prefix: '&b&lLanguage &e&l>&r'
 command:
-
+  info:
+    author: |
+      &7The author of this plugin is &eLukas Planz&7, also known as &eSytm &7or &eMd5Lukas
+    # If 'GNU Lesser General Public License' is not contained in this custom message the message will be replaced with a hard-coded english version
+    license: |
+      &7This plugin is licensed under the &eGNU Lesser General Public License&7.
+      &7And its source code is freely available at GitHub.
+      &7If you want to get a copy of it yourself, just click this message
+  command:
+    list:
+      header: '$prefix$ &7The following languages are available:'
+      fullySupported:
+        header: ' &7Fully supported:'
+        languageColor: '&a'
+        commaColor: '&7'
+      partiallySupported:
+        header: ' &7Partially supported:'
+        languageColor: '&9'
+        commaColor: '&7'
+    change:
+      success: '$prefix$ &7You now have switched to the language &eenglish'
+      notFound: '$prefix$ &cThe language &e%key% &ccould not be found'
+    default:
+      success: '$prefix$ &7You have set the default language to &e%language%'
+    help:
+      header: '$prefix$ &7The following commands are available:'
+      listLanguages: '&e /language &7- List all available languages and their availability'
+      changeLanguage: '&e /language <language> &7- Change your language to the specified one'
+      setDefaultLangauge: '&e /language default <language> &7- Change the default language to the new one'
+      info: '&e /language info &7- Show details about this plugin and its author'
+      help: '&e /language help &7- Show this command help'
