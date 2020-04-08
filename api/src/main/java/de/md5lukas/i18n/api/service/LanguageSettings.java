@@ -18,6 +18,8 @@
 
 package de.md5lukas.i18n.api.service;
 
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -36,13 +38,20 @@ public interface LanguageSettings {
     String getLanguage(UUID uuid);
 
     /**
-     * Get the language of a player and if none is set fall back to default language
+     * Get the language of a command sender. If it is a player it will use {@link #getLanguage(UUID)} and if it is the console
+     * {@link #getConsoleLanguage()}. Other variations are not supported
      *
-     * @param player The player
+     * @param commandSender The command sender to get the language for
      * @return The language of the player
      */
-    default String getLanguage(Player player) {
-        return this.getLanguage(player.getUniqueId());
+    default String getLanguage(CommandSender commandSender) {
+        if (commandSender instanceof Player) {
+            return this.getLanguage(((Player) commandSender).getUniqueId());
+        } else if (commandSender instanceof ConsoleCommandSender) {
+            return this.getConsoleLanguage();
+        } else {
+            throw new IllegalArgumentException("#getLanguage(CommandSender) only accepts 'Player' and 'ConsoleCommandSender'");
+        }
     }
 
     /**
@@ -56,15 +65,21 @@ public interface LanguageSettings {
     void setLanguage(UUID uuid, String language);
 
     /**
-     * Sets the language for a player
+     * Sets the language of a command sender
      * <br><br>
      * Use <code>null</code> to use the default value again
      *
-     * @param player   The player
-     * @param language The new language of the player
+     * @param commandSender The command sender to set the language of
+     * @param language      The new language of the command sender
      */
-    default void setLanguage(Player player, String language) {
-        this.setLanguage(player.getUniqueId(), language);
+    default void setLanguage(CommandSender commandSender, String language) {
+        if (commandSender instanceof Player) {
+            this.setLanguage(((Player) commandSender).getUniqueId(), language);
+        } else if (commandSender instanceof ConsoleCommandSender) {
+            this.setConsoleLanguage(language);
+        } else {
+            throw new IllegalArgumentException("#setLanguage(CommandSender, String) only accepts 'Player' and 'ConsoleCommandSender'");
+        }
     }
 
     /**

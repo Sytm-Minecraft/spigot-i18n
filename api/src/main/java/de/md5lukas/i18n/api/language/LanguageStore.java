@@ -18,29 +18,61 @@
 
 package de.md5lukas.i18n.api.language;
 
+import de.md5lukas.i18n.api.service.LanguageSettings;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.RegisteredServiceProvider;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 public class LanguageStore {
 
-    private Supplier<String> defaultLanguage;
-    private Map<String, Language> loadedLanguages;
+    private LanguageSettings languageSettings;
+    private Map<String, Language> languages;
 
-    public LanguageStore(Supplier<String> defaultLanguage) {
-        this.defaultLanguage = defaultLanguage;
-        loadedLanguages = new HashMap<>();
+    /**
+     * Creates a new language store and tries to load the {@link LanguageSettings} service.
+     * If it can't find one, {@link NullPointerException} is thrown.
+     */
+    public LanguageStore() {
+        RegisteredServiceProvider<LanguageSettings> rsp = checkNotNull(Bukkit.getServer().getServicesManager().getRegistration(LanguageSettings.class),
+                "A service provider for language settings could not be found");
+        languageSettings = checkNotNull(rsp.getProvider(), "A service provider for language settings could not be found");
+
+        this.languages = new HashMap<>();
     }
 
-    public boolean isLanguageRegistered(String language) {
-        return loadedLanguages.containsKey(language.toLowerCase());
+    /**
+     * Overrides the old languages (if present) with the new languages in this language store
+     *
+     * @param newLanguages A list of the new languages that should be used
+     */
+    public void setLanguages(List<Language> newLanguages) {
+        languages.clear();
+        newLanguages.forEach(language -> languages.put(language.getLanguageKey(), language));
     }
 
-    public Language getLanguage(String language) {
-        return loadedLanguages.get(language == null ? defaultLanguage.get() : language);
+    /**
+     * Gets a language from the languages set via {@link #setLanguages(List)} based on the key provided
+     *
+     * @param key The key of the language
+     * @return The language or <code>null</code> if not present
+     */
+    public Language getLanguage(String key) {
+        return languages.get(key);
     }
 
-    public void registerLanguage(Language language) {
-        loadedLanguages.put(language.getLanguageKey(), language);
+    /**
+     * Gets a language from the languages set via {@link #setLanguages(List)} based on the language of the command sender
+     *
+     * @param commandSender The command sender from where the language to use should be retrieved from
+     * @return The language of the command sender or <code>null</code> if not present
+     */
+    public Language getLanguage(CommandSender commandSender) {
+        return getLanguage(languageSettings.getLanguage(commandSender));
     }
 }

@@ -18,47 +18,48 @@
 
 package de.md5lukas.i18n.api.language;
 
-import com.google.common.base.Preconditions;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
+/**
+ * Simple helper for translations as messages
+ */
 public class Translation {
 
-    private final String message;
-    private final List<String> asList;
+    private final LanguageStore languageStore;
+    private final String key;
 
-    public Translation(String message) {
-        this.message = message;
-        this.asList = Collections.unmodifiableList(Arrays.asList(this.message.split("\\r?\\n", -1)));
+    private char altColorChar = '&'; // TODO make customizable
+
+    /**
+     * Creates a new translation helper using the language store and the key in the configuration
+     *
+     * @param languageStore The language store to use to retrieve the language data from
+     * @param key           The key of this translation in the configs
+     */
+    public Translation(LanguageStore languageStore, String key) {
+        this.languageStore = languageStore;
+        this.key = key;
     }
 
-    public String getMessage(String... targetsAndReplacements) {
-        return multiReplace(message, targetsAndReplacements);
+    /**
+     * Gets the string from the current translation in the language of the command sender
+     *
+     * @param commandSender          The command sender of which the language should be used
+     * @param targetsAndReplacements The targets and replacements to use to substitute strings in this translation
+     * @return The translated message with substitutions for the targets in place
+     */
+    public String getAsString(CommandSender commandSender, String... targetsAndReplacements) {
+        return ChatColor.translateAlternateColorCodes(altColorChar, StringHelper.multiReplace(languageStore.getLanguage(commandSender).getTranslation(key)));
     }
 
-    public List<String> asList(String... targetsAndReplacements) {
-        if (targetsAndReplacements.length == 0)
-            return asList;
-        return asList.stream().map(string -> multiReplace(string, targetsAndReplacements)).collect(Collectors.toList());
-    }
-
-    public void send(CommandSender sender, String... targetsAndReplacements) {
-        sender.sendMessage(multiReplace(message, targetsAndReplacements));
-    }
-
-    private String multiReplace(String string, String... targetsAndReplacements) {
-        if (targetsAndReplacements.length == 0)
-            return string;
-        Preconditions.checkArgument(targetsAndReplacements.length % 2 == 0, "Every target sequence needs a replacement");
-
-        for (int index = 0; index < targetsAndReplacements.length; index += 2) {
-            string = string.replace(targetsAndReplacements[index], targetsAndReplacements[index + 1]);
-        }
-
-        return string;
+    /**
+     * Gets the message using {@link #getAsString(CommandSender, String...)} and directly sends it to the command sender
+     *
+     * @param commandSender          The command sender of which the language should be used and the message should be sent to
+     * @param targetsAndReplacements The targets and replacements to use to substitute strings in this translation
+     */
+    public void send(CommandSender commandSender, String targetsAndReplacements) {
+        commandSender.sendMessage(ChatColor.translateAlternateColorCodes(altColorChar, getAsString(commandSender, targetsAndReplacements)));
     }
 }
