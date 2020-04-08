@@ -10,6 +10,7 @@
       <set>
         <option value="$PROJECT_DIR$/bungee-plugin/pom.xml" />
         <option value="$PROJECT_DIR$/bungee/pom.xml" />
+        <option value="$PROJECT_DIR$/core/pom.xml" />
       </set>
     </option>
   </component>
