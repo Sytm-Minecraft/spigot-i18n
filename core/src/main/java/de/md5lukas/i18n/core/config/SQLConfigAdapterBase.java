@@ -28,44 +28,51 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * A simple base for SQL based adapters
+ */
 abstract class SQLConfigAdapterBase implements ConfigAdapter {
 
 
     protected final Logger logger;
-    protected final String host, username, password, database, table, language;
+    protected final String host, username, password, database, table;
     protected final int port;
-    protected final boolean useSSL;
     protected Connection connection;
+    protected String language;
 
     protected Map<String, String> cache;
 
-    public SQLConfigAdapterBase(String host, int port, String username, String password, String database, boolean useSSL,
-            String table, String language, Logger logger) {
+    public SQLConfigAdapterBase(String host, int port, String username, String password, String database, String table, String language, Logger logger) {
         this.host = host;
         this.port = port;
         this.username = username;
         this.password = password;
         this.database = database;
         this.table = table;
-        this.useSSL = useSSL;
         this.language = language;
         this.logger = logger;
     }
 
+    /**
+     * Establish a connection to the database, if not already connected.
+     *
+     * @return <code>true</code> if the connection could be established, <code>false</code> otherwise
+     */
     public abstract boolean openConnection();
 
+    /**
+     * Close the connection to the database if connected
+     */
     public final void closeConnection() {
-        try {
-            if (this.connection == null || this.connection.isClosed())
-                return;
-            synchronized (this) {
+        synchronized (this) {
+            try {
                 if (this.connection == null || this.connection.isClosed())
                     return;
                 this.connection.close();
                 this.connection = null;
+            } catch (SQLException e) {
+                logger.log(Level.WARNING, "Couldn't properly close sql connection");
             }
-        } catch (SQLException e) {
-            logger.log(Level.WARNING, "Couldn't properly close sql connection");
         }
     }
 
@@ -94,5 +101,14 @@ abstract class SQLConfigAdapterBase implements ConfigAdapter {
             }
         }
         return cache.keySet();
+    }
+
+    /**
+     * Update the language to use for the queries. Useful if you have multiple languages and only want to establish the connection once
+     *
+     * @param language The new language to query
+     */
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

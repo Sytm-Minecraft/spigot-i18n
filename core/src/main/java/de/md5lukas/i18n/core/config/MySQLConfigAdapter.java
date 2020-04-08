@@ -23,11 +23,26 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * A ConfigAdapter targeted at MySQL / MariaDB databases
+ */
 public class MySQLConfigAdapter extends SQLConfigAdapterBase {
 
-    public MySQLConfigAdapter(String host, int port, String username, String password, String database, boolean useSSL,
+    /**
+     * Create a new MySQLConfigAdapter instance using the following parameters
+     *
+     * @param host     The host of the MySQL database
+     * @param port     The port of the MySQL database
+     * @param username The username
+     * @param password The password of the user
+     * @param database The database to use
+     * @param table    The table to use in the database
+     * @param language The initial language to use for the queries
+     * @param logger   The logger to use for error reporting
+     */
+    public MySQLConfigAdapter(String host, int port, String username, String password, String database,
             String table, String language, Logger logger) {
-        super(host, port, username, password, database, useSSL, table, language, logger);
+        super(host, port, username, password, database, table, language, logger);
     }
 
     @Override
@@ -49,8 +64,7 @@ public class MySQLConfigAdapter extends SQLConfigAdapterBase {
                 if (connection != null && !connection.isClosed())
                     return true;
                 this.connection = DriverManager
-                        .getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.database + "?useSSL=" + this.useSSL, this.username,
-                                this.password);
+                        .getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.database, this.username, this.password);
                 return true;
             } catch (SQLException e) {
                 logger.log(Level.SEVERE, "A connection to the mysql database could not be established!", e);
