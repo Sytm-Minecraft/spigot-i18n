@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public final class MessageExpander {
+public final class TranslationExpander {
 
     /**
      * Expands all variables in the input map and then filters them out. The passed map will be modified.
@@ -34,7 +34,7 @@ public final class MessageExpander {
      * @return The modified <code>input</code> map
      * @throws NullPointerException If either <code>input</code> and/or <code>settings</code> are null
      */
-    public static Map<String, String> expandVariables(Map<String, String> input, MessageExpanderSettings settings) {
+    public static Map<String, String> expandVariables(Map<String, String> input, TranslationExpanderSettings settings) {
         Preconditions.checkNotNull(input, "The input map to process cannot be null");
         Preconditions.checkNotNull(settings, "The settings to use cannot be null");
 
@@ -56,15 +56,15 @@ public final class MessageExpander {
     /**
      * Expands all variables in the input map and then filters them out. The passed map will be modified.
      * <br><br>
-     * Shorthand for <code>expandVariables(input, new MessageExpanderSettings())</code> effectively just using the default values.
-     * To see the default values take a look at {@link MessageExpanderSettings#MessageExpanderSettings()}
+     * Shorthand for <code>expandVariables(input, new TranslationExpanderSettings())</code> effectively just using the default values.
+     * To see the default values take a look at {@link TranslationExpanderSettings#TranslationExpanderSettings()}
      *
      * @param input The map containing key / value pairs from the configuration
      * @return The modified <code>input</code> map
      * @throws NullPointerException If <code>input</code> is null
-     * @see #expandVariables(Map, MessageExpanderSettings)
+     * @see #expandVariables(Map, TranslationExpanderSettings)
      */
     public static Map<String, String> expandVariables(Map<String, String> input) {
-        return expandVariables(input, new MessageExpanderSettings());
+        return expandVariables(input, new TranslationExpanderSettings());
     }
 }

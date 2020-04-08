@@ -24,7 +24,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Simple wrapper class with basic builder to provide settings to the message expander
  */
-public class MessageExpanderSettings {
+public class TranslationExpanderSettings {
 
     private String variablePrefix, openingDelimiter, closingDelimiter;
 
@@ -37,7 +37,7 @@ public class MessageExpanderSettings {
      *     <li>closingDelimiter = "}"</li>
      * </ul>
      */
-    public MessageExpanderSettings() {
+    public TranslationExpanderSettings() {
         variablePrefix = "variable.";
         openingDelimiter = "${";
         closingDelimiter = "$}";
@@ -50,7 +50,7 @@ public class MessageExpanderSettings {
      * @return <code>this</code> for a builder-like usage
      * @throws IllegalArgumentException If the <code>variablePrefix</code> argument is <code>null</code> or blank
      */
-    public MessageExpanderSettings setVariablePrefix(String variablePrefix) {
+    public TranslationExpanderSettings setVariablePrefix(String variablePrefix) {
         checkArgument(!checkNotNull(variablePrefix, "The new variablePrefix cannot be null!").trim().isEmpty(), "The new variablePrefix cannot be blank!");
 
         this.variablePrefix = variablePrefix;
@@ -64,7 +64,7 @@ public class MessageExpanderSettings {
      * @return <code>this</code> for a builder-like usage
      * @throws IllegalArgumentException If the <code>variablePrefix</code> argument is <code>null</code> or blank
      */
-    public MessageExpanderSettings setOpeningDelimiter(String openingDelimiter) {
+    public TranslationExpanderSettings setOpeningDelimiter(String openingDelimiter) {
         checkArgument(!checkNotNull(variablePrefix, "The new openingDelimiter cannot be null!").trim().isEmpty(), "The new openingDelimiter cannot be blank!");
 
         this.openingDelimiter = openingDelimiter;
@@ -78,7 +78,7 @@ public class MessageExpanderSettings {
      * @return <code>this</code> for a builder-like usage
      * @throws IllegalArgumentException If the <code>variablePrefix</code> argument is <code>null</code> or blank
      */
-    public MessageExpanderSettings setClosingDelimiter(String closingDelimiter) {
+    public TranslationExpanderSettings setClosingDelimiter(String closingDelimiter) {
         checkArgument(!checkNotNull(variablePrefix, "The new vclosingDelimiter cannot be null!").trim().isEmpty(), "The new closingDelimiter cannot be blank!");
 
         this.closingDelimiter = closingDelimiter;
