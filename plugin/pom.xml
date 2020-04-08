@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>de.md5lukas.i18n</groupId>
-            <artifactId>spigot-api</artifactId>
+            <artifactId>api</artifactId>
             <version>${project.parent.version}</version>
             <scope>compile</scope>
         </dependency>
