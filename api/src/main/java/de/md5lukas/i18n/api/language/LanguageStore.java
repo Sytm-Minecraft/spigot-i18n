@@ -31,8 +31,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class LanguageStore {
 
-    private LanguageSettings languageSettings;
-    private Map<String, Language> languages;
+    private final LanguageSettings languageSettings;
+    private final Map<String, Language> languages;
 
     /**
      * Creates a new language store and tries to load the {@link LanguageSettings} service.

@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.spigot.internal.language;
+package de.md5lukas.i18n.internal.language;
 
 import de.md5lukas.i18n.api.service.LanguageSupport;
 import org.bukkit.plugin.Plugin;

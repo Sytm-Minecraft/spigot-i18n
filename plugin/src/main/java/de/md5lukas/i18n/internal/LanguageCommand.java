@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.spigot.internal;
+package de.md5lukas.i18n.internal;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

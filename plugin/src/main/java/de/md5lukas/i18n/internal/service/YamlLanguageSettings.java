@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.spigot.internal.service;
+package de.md5lukas.i18n.internal.service;
 
 import com.google.common.base.Preconditions;
 import de.md5lukas.i18n.api.service.LanguageSettings;
@@ -43,6 +43,7 @@ public class YamlLanguageSettings implements LanguageSettings {
             cfg.set("defaultLanguage", "en");
             save();
         }
+        plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, this::save, 20L * 60L * 5L, 20L * 60L * 5L);
     }
 
     @Override

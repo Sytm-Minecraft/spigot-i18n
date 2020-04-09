@@ -32,13 +32,13 @@ public class TranslationExpanderSettings {
      * Creates a new settings object with the following default values:
      * <br>
      * <ul>
-     *     <li>variablePrefix = "variable."</li>
+     *     <li>variablePrefix = "variables."</li>
      *     <li>openingDelimiter = "${"</li>
      *     <li>closingDelimiter = "}"</li>
      * </ul>
      */
     public TranslationExpanderSettings() {
-        variablePrefix = "variable.";
+        variablePrefix = "variables.";
         openingDelimiter = "${";
         closingDelimiter = "$}";
     }

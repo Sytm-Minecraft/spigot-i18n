@@ -21,6 +21,8 @@ package de.md5lukas.i18n.api.language;
 import java.util.Collections;
 import java.util.Map;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * A simple class to hold data about a language
  */
@@ -33,6 +35,8 @@ public class Language {
 
     /**
      * Creates a new language instance with the provided values
+     * <br><br>
+     * Throws {@link NullPointerException} if any of the parameters are null
      *
      * @param languageKey    The language key, e.g. <code>en</code> or <code>de</code>
      * @param translations   The actual messages in key / value format
@@ -40,10 +44,10 @@ public class Language {
      * @param nameInLanguage The name of the language in itself, e.g. <code>Deutsch</code>
      */
     public Language(String languageKey, Map<String, String> translations, String nameInEnglish, String nameInLanguage) {
-        this.languageKey = languageKey.toLowerCase();
-        this.translations = Collections.unmodifiableMap(translations);
-        this.nameInEnglish = nameInEnglish;
-        this.nameInLanguage = nameInLanguage;
+        this.languageKey = checkNotNull(languageKey, "The language key cannot be null").toLowerCase();
+        this.translations = Collections.unmodifiableMap(checkNotNull(translations, "The translation map cannot be null"));
+        this.nameInEnglish = checkNotNull(nameInEnglish, "The language name in english cannot be null");
+        this.nameInLanguage = checkNotNull(nameInLanguage, "The language name in itself cannot be null");
     }
 
     /**
@@ -58,10 +62,11 @@ public class Language {
      *
      * @param key The key of the translation in the map
      * @return The translation, or <code>null</code> if not present
+     * @throws NullPointerException If the key is null
      * @see Map#get(Object)
      */
     public String getTranslation(String key) {
-        return translations.get(key);
+        return translations.get(checkNotNull(key, "The key to get the translation from cannot be null"));
     }
 
     /**

@@ -1,4 +1,9 @@
-prefix: '&b&lLanguage &e&l>&r'
+meta:
+  key: en
+  nameInEnglish: English
+  nameInLanguage: English
+variables:
+  prefix: '&b&lLanguage &e&l>&r'
 command:
   info:
     author: |
@@ -8,26 +13,26 @@ command:
       &7This plugin is licensed under the &eGNU Lesser General Public License&7.
       &7And its source code is freely available at GitHub.
       &7If you want to get a copy of it yourself, just click this message
-  command:
-    list:
-      header: '$prefix$ &7The following languages are available:'
-      fullySupported:
-        header: ' &7Fully supported:'
-        languageColor: '&a'
-        commaColor: '&7'
-      partiallySupported:
-        header: ' &7Partially supported:'
-        languageColor: '&9'
-        commaColor: '&7'
-    change:
-      success: '$prefix$ &7You now have switched to the language &eenglish'
-      notFound: '$prefix$ &cThe language &e%key% &ccould not be found'
-    default:
-      success: '$prefix$ &7You have set the default language to &e%language%'
-    help:
-      header: '$prefix$ &7The following commands are available:'
-      listLanguages: '&e /language &7- List all available languages and their availability'
-      changeLanguage: '&e /language <language> &7- Change your language to the specified one'
-      setDefaultLangauge: '&e /language default <language> &7- Change the default language to the new one'
-      info: '&e /language info &7- Show details about this plugin and its author'
-      help: '&e /language help &7- Show this command help'
+  list:
+    header: '${prefix} &7The following languages are available:'
+    fullySupported:
+      header: ' &7Fully supported:'
+      languageColor: '&a'
+      commaColor: '&7'
+    partiallySupported:
+      header: ' &7Partially supported:'
+      languageColor: '&9'
+      commaColor: '&7'
+  change:
+    success: '${prefix} &7You now have switched to the language &eenglish'
+    notFound: '${prefix} &cThe language &e%key% &ccould not be found'
+  default:
+    success: '${prefix} &7You have set the default language to &e%language%'
+    notFound: '${prefix} &cThe language &e%key% &ccould not be found'
+  help:
+    header: '${prefix} &7The following commands are available:'
+    listLanguages: '&e /language &7- List all available languages and their availability'
+    changeLanguage: '&e /language <language> &7- Change your language to the specified one'
+    setDefaultLangauge: '&e /language default <language> &7- Change the default language to the new one'
+    info: '&e /language info &7- Show details about this plugin and its author'
+    help: '&e /language help &7- Show this command help'

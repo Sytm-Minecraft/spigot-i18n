@@ -22,6 +22,8 @@ import de.md5lukas.i18n.api.language.LanguageStore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Simple helper for translations as messages
  */
@@ -39,8 +41,8 @@ public class Translation {
      * @param key           The key of this translation in the configs
      */
     public Translation(LanguageStore languageStore, String key) {
-        this.languageStore = languageStore;
-        this.key = key;
+        this.languageStore = checkNotNull(languageStore, "The language store cannot be null");
+        this.key = checkNotNull(key, "The translation key cannot be null");
     }
 
     /**
@@ -49,8 +51,10 @@ public class Translation {
      * @param commandSender          The command sender of which the language should be used
      * @param targetsAndReplacements The targets and replacements to use to substitute strings in this translation
      * @return The translated message with substitutions for the targets in place
+     * @throws NullPointerException If commandSender is null
      */
     public String getAsString(CommandSender commandSender, String... targetsAndReplacements) {
+        checkNotNull(commandSender, "The command sender cannot be null");
         return ChatColor.translateAlternateColorCodes(altColorChar, StringHelper.multiReplace(languageStore.getLanguage(commandSender).getTranslation(key)));
     }
 
@@ -59,8 +63,10 @@ public class Translation {
      *
      * @param commandSender          The command sender of which the language should be used and the message should be sent to
      * @param targetsAndReplacements The targets and replacements to use to substitute strings in this translation
+     * @throws NullPointerException If commandSender is null
      */
     public void send(CommandSender commandSender, String targetsAndReplacements) {
-        commandSender.sendMessage(ChatColor.translateAlternateColorCodes(altColorChar, getAsString(commandSender, targetsAndReplacements)));
+        checkNotNull(commandSender, "The command sender cannot be null")
+                .sendMessage(ChatColor.translateAlternateColorCodes(altColorChar, getAsString(commandSender, targetsAndReplacements)));
     }
 }
