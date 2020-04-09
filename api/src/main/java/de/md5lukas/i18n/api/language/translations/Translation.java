@@ -16,8 +16,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.api.language;
+package de.md5lukas.i18n.api.language.translations;
 
+import de.md5lukas.i18n.api.language.LanguageStore;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 

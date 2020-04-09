@@ -18,12 +18,12 @@
 
 package de.md5lukas.i18n.spigot.internal;
 
+import de.md5lukas.i18n.api.service.LanguageSettings;
+import de.md5lukas.i18n.api.service.LanguageSupport;
 import de.md5lukas.i18n.spigot.internal.config.Config;
 import de.md5lukas.i18n.spigot.internal.language.LanguageSupportProvider;
 import de.md5lukas.i18n.spigot.internal.service.MySQLLanguageSettings;
 import de.md5lukas.i18n.spigot.internal.service.YamlLanguageSettings;
-import de.md5lukas.i18n.api.service.LanguageSettings;
-import de.md5lukas.i18n.api.service.LanguageSupport;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;

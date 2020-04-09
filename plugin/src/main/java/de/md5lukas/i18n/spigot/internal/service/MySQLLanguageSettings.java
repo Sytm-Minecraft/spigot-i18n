@@ -21,8 +21,8 @@ package de.md5lukas.i18n.spigot.internal.service;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import de.md5lukas.i18n.spigot.internal.config.MySQLSettings;
 import de.md5lukas.i18n.api.service.LanguageSettings;
+import de.md5lukas.i18n.spigot.internal.config.MySQLSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

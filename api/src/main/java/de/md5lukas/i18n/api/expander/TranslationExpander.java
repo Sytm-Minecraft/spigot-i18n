@@ -40,7 +40,7 @@ public final class TranslationExpander {
 
         List<String[]> variables = input.entrySet().stream().filter(entry -> entry.getKey().startsWith(settings.getVariablePrefix())).map(entry -> {
             input.remove(entry.getKey());
-            return new String[]{ entry.getKey().substring(settings.getVariablePrefix().length()).toLowerCase(), entry.getValue() };
+            return new String[] { entry.getKey().substring(settings.getVariablePrefix().length()).toLowerCase(), entry.getValue() };
         }).collect(Collectors.toList());
 
         for (String[] variable : variables) {
