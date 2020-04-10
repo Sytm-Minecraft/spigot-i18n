@@ -16,22 +16,32 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.api.language.translations;
+package de.md5lukas.i18n.sapi.language;
 
-import com.google.common.base.Preconditions;
+import org.bukkit.command.CommandSender;
 
-class StringHelper {
+/**
+ * Simple interface defining common methods for a language storage
+ */
+public interface LanguageStore {
 
-    // TODO use method from commons library and update JavaDoc to explain it better
-    static String multiReplace(String string, String... targetsAndReplacements) {
-        if (targetsAndReplacements.length == 0)
-            return string;
-        Preconditions.checkArgument(targetsAndReplacements.length % 2 != 0, "Every target sequence needs a replacement");
+    /**
+     * Gets a language from the languages in this store based on the key of the language.
+     * <br><br>
+     * This may vary based on the implementation.
+     *
+     * @param key The key of the language
+     * @return An appropriate language that is in this store
+     */
+    Language getLanguage(String key);
 
-        for (int index = 0; index < targetsAndReplacements.length; index += 2) {
-            string = string.replace(targetsAndReplacements[index], targetsAndReplacements[index + 1]);
-        }
-
-        return string;
-    }
+    /**
+     * Gets a language from the languages in this store based on the preferences of the command sender.
+     * <br><br>
+     * This may vary based on the implementation.
+     *
+     * @param commandSender
+     * @return
+     */
+    Language getLanguage(CommandSender commandSender);
 }

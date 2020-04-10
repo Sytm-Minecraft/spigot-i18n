@@ -18,8 +18,8 @@
 
 package de.md5lukas.i18n.internal.language;
 
-import de.md5lukas.i18n.api.language.Language;
-import de.md5lukas.i18n.api.language.LanguageStore;
+import de.md5lukas.i18n.api.language.MultiLanguageStore;
+import de.md5lukas.i18n.sapi.language.Language;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -33,9 +33,9 @@ import java.util.Map;
 public class LanguageLoader {
 
     private final Plugin plugin;
-    private final LanguageStore languageStore;
+    private final MultiLanguageStore languageStore;
 
-    public LanguageLoader(Plugin plugin, LanguageStore languageStore) {
+    public LanguageLoader(Plugin plugin, MultiLanguageStore languageStore) {
         this.plugin = plugin;
         this.languageStore = languageStore;
     }

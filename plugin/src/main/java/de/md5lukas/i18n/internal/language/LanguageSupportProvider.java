@@ -25,10 +25,10 @@ import java.util.*;
 
 public class LanguageSupportProvider implements LanguageSupport {
 
-    private Map<Plugin, Set<String>> languagesSupported = new HashMap<>();
+    private final Map<Plugin, Set<String>> languagesSupported = new HashMap<>();
     private boolean shouldCalculate = true;
-    private Set<String> fullySupported = new HashSet<>(), fullySupportedUnmodifiable = Collections.unmodifiableSet(fullySupported);
-    private Set<String> partiallySupported = new HashSet<>(), partiallySupportedUnmodifiable = Collections.unmodifiableSet(partiallySupported);
+    private final Set<String> fullySupported = new HashSet<>(), fullySupportedUnmodifiable = Collections.unmodifiableSet(fullySupported);
+    private final Set<String> partiallySupported = new HashSet<>(), partiallySupportedUnmodifiable = Collections.unmodifiableSet(partiallySupported);
 
     @Override
     public void registerLanguages(Plugin plugin, Set<String> languages) {

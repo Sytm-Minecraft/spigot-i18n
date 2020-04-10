@@ -16,10 +16,10 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.api.language.translations;
+package de.md5lukas.i18n.sapi.translations;
 
-import de.md5lukas.i18n.api.language.Language;
-import de.md5lukas.i18n.api.language.LanguageStore;
+import de.md5lukas.i18n.sapi.language.Language;
+import de.md5lukas.i18n.sapi.language.LanguageStore;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

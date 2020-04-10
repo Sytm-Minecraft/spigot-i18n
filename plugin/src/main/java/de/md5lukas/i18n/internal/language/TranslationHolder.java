@@ -18,14 +18,14 @@
 
 package de.md5lukas.i18n.internal.language;
 
-import de.md5lukas.i18n.api.language.LanguageStore;
-import de.md5lukas.i18n.api.language.translations.Translation;
+import de.md5lukas.i18n.api.language.MultiLanguageStore;
+import de.md5lukas.i18n.sapi.translations.Translation;
 
 public class TranslationHolder {
 
-    private final LanguageStore store;
+    private final MultiLanguageStore store;
 
-    public TranslationHolder(LanguageStore store) {
+    public TranslationHolder(MultiLanguageStore store) {
         this.store = store;
 
         COMMAND_NOT_FOUND = t("command.notFound");

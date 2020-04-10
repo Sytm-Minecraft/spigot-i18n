@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.api.language;
+package de.md5lukas.i18n.sapi.language;
 
 import java.util.Collections;
 import java.util.Map;

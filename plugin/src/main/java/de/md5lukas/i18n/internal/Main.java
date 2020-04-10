@@ -18,7 +18,7 @@
 
 package de.md5lukas.i18n.internal;
 
-import de.md5lukas.i18n.api.language.LanguageStore;
+import de.md5lukas.i18n.api.language.MultiLanguageStore;
 import de.md5lukas.i18n.api.service.LanguageSettings;
 import de.md5lukas.i18n.api.service.LanguageSupport;
 import de.md5lukas.i18n.internal.config.Config;
@@ -97,7 +97,7 @@ public class Main extends JavaPlugin {
     }
 
     private void loadLanguages() {
-        LanguageStore store = new LanguageStore();
+        MultiLanguageStore store = new MultiLanguageStore();
         translationHolder = new TranslationHolder(store);
         new LanguageLoader(this, store).load();
     }

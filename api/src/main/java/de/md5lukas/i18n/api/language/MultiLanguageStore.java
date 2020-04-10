@@ -19,6 +19,8 @@
 package de.md5lukas.i18n.api.language;
 
 import de.md5lukas.i18n.api.service.LanguageSettings;
+import de.md5lukas.i18n.sapi.language.Language;
+import de.md5lukas.i18n.sapi.language.LanguageStore;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -29,7 +31,7 @@ import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class LanguageStore {
+public class MultiLanguageStore implements LanguageStore {
 
     private final LanguageSettings languageSettings;
     private final Map<String, Language> languages;
@@ -38,7 +40,7 @@ public class LanguageStore {
      * Creates a new language store and tries to load the {@link LanguageSettings} service.
      * If it can't find one, {@link NullPointerException} is thrown.
      */
-    public LanguageStore() {
+    public MultiLanguageStore() {
         RegisteredServiceProvider<LanguageSettings> rsp = checkNotNull(Bukkit.getServer().getServicesManager().getRegistration(LanguageSettings.class),
                 "A service provider for language settings could not be found");
         languageSettings = checkNotNull(rsp.getProvider(), "A service provider for language settings could not be found");
@@ -64,6 +66,7 @@ public class LanguageStore {
      * @param key The key of the language
      * @return The language, the default language or <code>null</code> if both are not present
      */
+    @Override
     public Language getLanguage(String key) {
         Language language = languages.get(key);
         if (language == null)
@@ -77,6 +80,7 @@ public class LanguageStore {
      * @param commandSender The command sender from where the language to use should be retrieved from
      * @return The language of the command sender or <code>null</code> if not present
      */
+    @Override
     public Language getLanguage(CommandSender commandSender) {
         return getLanguage(languageSettings.getLanguage(commandSender));
     }

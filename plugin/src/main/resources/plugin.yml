@@ -5,7 +5,7 @@ main: de.md5lukas.i18l.internal.Main
 
 commands:
   language:
-    description: The priamry way to switch languages
+    description: The priamary way to switch languages
 
 permissions:
   spigot-i18n.*:
