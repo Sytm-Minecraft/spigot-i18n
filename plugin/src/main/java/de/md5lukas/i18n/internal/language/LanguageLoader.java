@@ -47,6 +47,12 @@ public class LanguageLoader {
         for (File file : languageFolder.listFiles()) {
             FileConfiguration lang = YamlConfiguration.loadConfiguration(file);
 
+            if (!lang.getString("command.info.license").toLowerCase().contains("gnu lesser general public license")) {
+                lang.set("command.info.license",
+                        "&7This plugin is licensed under the &eGNU Lesser General Public License&7 and its source code is freely available at GitHub.\n"
+                                + "&7If you want to get a copy of it yourself, just click this message");
+            }
+
             Map<String, String> translations = new HashMap<>();
 
             lang.getKeys(true).stream().filter(key -> !key.startsWith("meta")).filter(lang::isString)

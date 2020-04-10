@@ -18,7 +18,6 @@
 
 package de.md5lukas.i18n.api.language.translations;
 
-import com.google.common.base.Preconditions;
 import de.md5lukas.i18n.api.language.Language;
 import de.md5lukas.i18n.api.language.LanguageStore;
 import org.bukkit.ChatColor;
@@ -59,6 +58,22 @@ public class ItemTranslation {
         this.materialSupplier = checkNotNull(materialSupplier, "The material supplier cannot be null");
         this.displayNameKey = checkNotNull(displayNameKey, "The display name key cannot be null");
         this.descriptionKey = checkNotNull(descriptionKey, "The description key cannot be null");
+    }
+
+    /**
+     * Creates a new translation helper for item stacks using the language store, the material supplier and the key for the configuration.
+     * <br>
+     * To get the keys for the display name and description, <code>.displayName</code> and <code>.description</code> are appended to the key
+     * respectively to get the keys that are actually used.
+     * <br><br>
+     * A {@link NullPointerException} is thrown if any of the parameters are null
+     *
+     * @param languageStore    The language store to sue to retrieve the language data from
+     * @param materialSupplier The material supplier that will provide that material in the case a new item stack should get created
+     * @param key              The common key in the configs
+     */
+    public ItemTranslation(LanguageStore languageStore, Supplier<Material> materialSupplier, String key) {
+        this(languageStore, materialSupplier, checkNotNull(key, "The common key cannot be null") + ".displayName", key + ".description");
     }
 
     /**

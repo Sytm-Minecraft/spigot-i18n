@@ -47,6 +47,11 @@ public class LanguageSupportProvider implements LanguageSupport {
         return partiallySupportedUnmodifiable;
     }
 
+    @Override
+    public boolean isLanguageRegistered(String key) {
+        return fullySupported.contains(key) || partiallySupported.contains(key);
+    }
+
     public void calculateSupportedLanguages() {
         if (shouldCalculate) {
             shouldCalculate = false;

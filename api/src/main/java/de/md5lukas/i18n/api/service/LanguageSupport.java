@@ -56,4 +56,12 @@ public interface LanguageSupport {
      * @see java.util.Collections#unmodifiableSet(Set)
      */
     Set<String> partiallySupportedLanguages();
+
+    /**
+     * Check if a language is registered
+     *
+     * @param key The key of the language to look for
+     * @return <code>true</code> if the language has been registered
+     */
+    boolean isLanguageRegistered(String key);
 }

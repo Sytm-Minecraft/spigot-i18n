@@ -65,7 +65,7 @@ public class Translation {
      * @param targetsAndReplacements The targets and replacements to use to substitute strings in this translation
      * @throws NullPointerException If commandSender is null
      */
-    public void send(CommandSender commandSender, String targetsAndReplacements) {
+    public void send(CommandSender commandSender, String... targetsAndReplacements) {
         checkNotNull(commandSender, "The command sender cannot be null")
                 .sendMessage(ChatColor.translateAlternateColorCodes(altColorChar, getAsString(commandSender, targetsAndReplacements)));
     }

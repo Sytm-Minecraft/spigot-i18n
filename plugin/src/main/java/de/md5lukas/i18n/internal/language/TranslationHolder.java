@@ -28,7 +28,8 @@ public class TranslationHolder {
     public TranslationHolder(LanguageStore store) {
         this.store = store;
 
-        COMMAND_INFO_AUTHOR = t("command.info.author");
+        COMMAND_NOT_FOUND = t("command.notFound");
+        COMMAND_NO_PERMISSION = t("command.noPermission");
         COMMAND_INFO_LICENSE = t("command.info.license");
         COMMAND_LIST_HEADER = t("command.list.header");
         COMMAND_LIST_FULLY_SUPPORTED_HEADER = t("command.list.fullySupported.header");
@@ -39,8 +40,9 @@ public class TranslationHolder {
         COMMAND_LIST_PARTIALLY_SUPPORTED_COMMA_COLOR = t("command.list.partiallySupported.commaColor");
         COMMAND_CHANGE_SUCCESS = t("command.change.success");
         COMMAND_CHANGE_NOT_FOUND = t("command.change.notFound");
-        COMMAND_DEFAULT_SUCCESS = t("command.default.success");
-        COMMAND_DEFAULT_NOT_FOUND = t("command.default.notFound");
+        COMMAND_SET_DEFAULT_SUCCESS = t("command.setDefault.success");
+        COMMAND_SET_DEFAULT_NOT_FOUND = t("command.setDefault.notFound");
+        COMMAND_SET_DEFAULT_MISSING_ARGUMENT = t("command.setDefault.missingArgument");
         COMMAND_HELP_HEADER = t("command.help.header");
         COMMAND_HELP_LIST_LANGUAGES = t("command.help.listLanguages");
         COMMAND_HELP_CHANGE_LANGUAGE = t("command.help.changeLanguage");
@@ -50,7 +52,8 @@ public class TranslationHolder {
     }
 
     public final Translation
-            COMMAND_INFO_AUTHOR,
+            COMMAND_NOT_FOUND,
+            COMMAND_NO_PERMISSION,
             COMMAND_INFO_LICENSE,
             COMMAND_LIST_HEADER,
             COMMAND_LIST_FULLY_SUPPORTED_HEADER,
@@ -61,8 +64,9 @@ public class TranslationHolder {
             COMMAND_LIST_PARTIALLY_SUPPORTED_COMMA_COLOR,
             COMMAND_CHANGE_SUCCESS,
             COMMAND_CHANGE_NOT_FOUND,
-            COMMAND_DEFAULT_SUCCESS,
-            COMMAND_DEFAULT_NOT_FOUND,
+            COMMAND_SET_DEFAULT_SUCCESS,
+            COMMAND_SET_DEFAULT_NOT_FOUND,
+            COMMAND_SET_DEFAULT_MISSING_ARGUMENT,
             COMMAND_HELP_HEADER,
             COMMAND_HELP_LIST_LANGUAGES,
             COMMAND_HELP_CHANGE_LANGUAGE,

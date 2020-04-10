@@ -37,7 +37,8 @@ public class Main extends JavaPlugin {
 
     private Config config;
     private TranslationHolder translationHolder;
-    private YamlLanguageSettings yamlLanguageSettings = null;
+    private LanguageSupport languageSupport;
+    private LanguageSettings languageSettings = null;
 
     @Override
     public void onEnable() {
@@ -50,24 +51,33 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (yamlLanguageSettings != null) {
-            yamlLanguageSettings.save();
+        if (languageSettings instanceof YamlLanguageSettings) {
+            ((YamlLanguageSettings) languageSettings).save();
         }
     }
 
-    public TranslationHolder getTH() {
+    public TranslationHolder th() {
         return translationHolder;
+    }
+
+    public LanguageSettings getLanguageSettings() {
+        return languageSettings;
+    }
+
+    public LanguageSupport getLanguageSupport() {
+        return languageSupport;
     }
 
     private void registerServices() {
         ServicesManager sm = getServer().getServicesManager();
         switch (config.getFormat()) {
             case YML:
-                yamlLanguageSettings = new YamlLanguageSettings(this);
-                sm.register(LanguageSettings.class, yamlLanguageSettings, this, ServicePriority.Lowest);
+                languageSettings = new YamlLanguageSettings(this);
+                sm.register(LanguageSettings.class, languageSettings, this, ServicePriority.Lowest);
                 break;
             case MYSQL:
-                sm.register(LanguageSettings.class, new MySQLLanguageSettings(this, config.getMySQLSettings()), this, ServicePriority.Lowest);
+                languageSettings = new MySQLLanguageSettings(this, config.getMySQLSettings());
+                sm.register(LanguageSettings.class, languageSettings, this, ServicePriority.Lowest);
                 break;
             default:
                 getLogger().log(Level.SEVERE, "Could not determine format for service provider (%s), disabling", config.getFormat());
@@ -75,7 +85,9 @@ public class Main extends JavaPlugin {
                 return;
         }
 
-        sm.register(LanguageSupport.class, new LanguageSupportProvider(), this, ServicePriority.Lowest);
+        languageSupport = new LanguageSupportProvider();
+
+        sm.register(LanguageSupport.class, languageSupport, this, ServicePriority.Lowest);
     }
 
     private void loadConfig() {

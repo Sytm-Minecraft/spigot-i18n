@@ -58,12 +58,17 @@ public class LanguageStore {
 
     /**
      * Gets a language from the languages set via {@link #setLanguages(List)} based on the key provided
+     * <br><br>
+     * If the provided language is not available, the default language is returned, which still can be null
      *
      * @param key The key of the language
-     * @return The language or <code>null</code> if not present
+     * @return The language, the default language or <code>null</code> if both are not present
      */
     public Language getLanguage(String key) {
-        return languages.get(key);
+        Language language = languages.get(key);
+        if (language == null)
+            return languages.get(languageSettings.getDefaultLanguage());
+        return language;
     }
 
     /**
