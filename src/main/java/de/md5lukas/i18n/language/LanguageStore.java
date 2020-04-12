@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.sapi.language;
+package de.md5lukas.i18n.language;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -36,6 +36,7 @@ public final class LanguageStore {
     /**
      * Creates a new language store with the given default language.
      *
+     * @param defaultLanguage The default language to use
      * @throws NullPointerException If the defaultLanguage is null
      */
     public LanguageStore(String defaultLanguage) {

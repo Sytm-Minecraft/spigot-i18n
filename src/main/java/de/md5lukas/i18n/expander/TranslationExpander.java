@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.sapi.expander;
+package de.md5lukas.i18n.expander;
 
 import com.google.common.base.Preconditions;
 

@@ -4,13 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.md5lukas.i18n</groupId>
+    <groupId>de.md5lukas</groupId>
     <artifactId>spigot-i18n</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <modules>
-        <module>shade-api</module>
-    </modules>
-    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -45,55 +41,33 @@
         </repository>
     </repositories>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
-                <version>5.6.1</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>${spigot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
     <build>
+        <defaultGoal>clean verify</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>3.0.0-M1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M4</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <configuration>
-                        <archive>
-                            <addMavenDescriptor>false</addMavenDescriptor>
-                        </archive>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-shade-plugin</artifactId>
-                    <version>3.2.2</version>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>shade</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <createDependencyReducedPom>false</createDependencyReducedPom>
-                        <minimizeJar>false</minimizeJar>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -124,24 +98,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-    <!--<build>
-        <defaultGoal>clean verify</defaultGoal>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>plugin.yml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>plugin.yml</exclude>
-                </excludes>
-                <filtering>false</filtering>
-            </resource>
-        </resources>
-    </build>-->
 </project>

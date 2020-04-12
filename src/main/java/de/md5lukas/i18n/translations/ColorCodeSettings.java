@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.sapi.translations;
+package de.md5lukas.i18n.translations;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -34,7 +34,7 @@ public final class ColorCodeSettings {
      * Creates a new settings object with the following default values:
      * <ul>
      *     <li>enabled = true</li>
-     *     <li>altColorChar = '&'</li>
+     *     <li>altColorChar = {@literal '&'}</li>
      * </ul>
      */
     public ColorCodeSettings() {

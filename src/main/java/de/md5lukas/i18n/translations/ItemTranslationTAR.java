@@ -16,7 +16,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.sapi.translations;
+package de.md5lukas.i18n.translations;
 
 import com.google.common.base.Preconditions;
 

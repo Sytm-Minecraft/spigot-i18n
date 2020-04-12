@@ -16,9 +16,9 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package de.md5lukas.i18n.sapi.translations;
+package de.md5lukas.i18n.translations;
 
-import de.md5lukas.i18n.sapi.language.LanguageStore;
+import de.md5lukas.i18n.language.LanguageStore;
 import org.bukkit.command.CommandSender;
 
 import static com.google.common.base.Preconditions.checkNotNull;
