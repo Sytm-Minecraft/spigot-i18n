@@ -24,6 +24,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * This class contains a helper function that allows one to expand variables in the translation before the are stored in the plugin,
+ * so that at runtime only dynamic variables need to be replaced
+ *
+ * @author Lukas Planz
+ * @since 1.0.0
+ */
 public final class TranslationExpander {
 
     /**
@@ -33,6 +40,7 @@ public final class TranslationExpander {
      * @param settings The settings object to use its settings from
      * @return The modified <code>input</code> map
      * @throws NullPointerException If either <code>input</code> and/or <code>settings</code> are null
+     * @since 1.0.0
      */
     public static Map<String, String> expandVariables(Map<String, String> input, TranslationExpanderSettings settings) {
         Preconditions.checkNotNull(input, "The input map to process cannot be null");
@@ -63,6 +71,7 @@ public final class TranslationExpander {
      * @return The modified <code>input</code> map
      * @throws NullPointerException If <code>input</code> is null
      * @see #expandVariables(Map, TranslationExpanderSettings)
+     * @since 1.0.0
      */
     public static Map<String, String> expandVariables(Map<String, String> input) {
         return expandVariables(input, new TranslationExpanderSettings());

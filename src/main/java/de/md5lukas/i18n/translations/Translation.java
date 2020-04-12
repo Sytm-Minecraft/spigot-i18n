@@ -18,17 +18,20 @@
 
 package de.md5lukas.i18n.translations;
 
-import de.md5lukas.i18n.language.LanguageStore;
+import de.md5lukas.i18n.language.LanguageStorage;
 import org.bukkit.command.CommandSender;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Simple helper for translations as messages
+ *
+ * @author Lukas Planz
+ * @since 1.0.0
  */
 public final class Translation {
 
-    private final LanguageStore languageStore;
+    private final LanguageStorage languageStorage;
     private final String key;
 
     private final ColorCodeSettings colorCodeSettings;
@@ -36,12 +39,13 @@ public final class Translation {
     /**
      * Creates a new translation helper using the language store, the key in the configuration and color code settings
      *
-     * @param languageStore     The language store to use to retrieve the language data from
+     * @param languageStorage   The language store to use to retrieve the language data from
      * @param key               The key of this translation in the configs
      * @param colorCodeSettings The color code settings to use for this translation
+     * @since 1.0.0
      */
-    public Translation(LanguageStore languageStore, String key, ColorCodeSettings colorCodeSettings) {
-        this.languageStore = checkNotNull(languageStore, "The language store cannot be null");
+    public Translation(LanguageStorage languageStorage, String key, ColorCodeSettings colorCodeSettings) {
+        this.languageStorage = checkNotNull(languageStorage, "The language store cannot be null");
         this.key = checkNotNull(key, "The translation key cannot be null");
         this.colorCodeSettings = checkNotNull(colorCodeSettings, "The color code settings cannot be null");
     }
@@ -51,11 +55,12 @@ public final class Translation {
      * <br><br>
      * {@link ColorCodeSettings#ColorCodeSettings()} for default color code settings
      *
-     * @param languageStore The language store to use to retrieve the language data from
-     * @param key           The key of this translation in the configs
+     * @param languageStorage The language store to use to retrieve the language data from
+     * @param key             The key of this translation in the configs
+     * @since 1.0.0
      */
-    public Translation(LanguageStore languageStore, String key) {
-        this(languageStore, key, ColorCodeSettings.DEFAULT);
+    public Translation(LanguageStorage languageStorage, String key) {
+        this(languageStorage, key, ColorCodeSettings.DEFAULT);
     }
 
     /**
@@ -65,10 +70,11 @@ public final class Translation {
      * @param targetsAndReplacements The targets and replacements to use to substitute strings in this translation
      * @return The translated message with substitutions for the targets in place
      * @throws NullPointerException If commandSender is null
+     * @since 1.0.0
      */
     public String getAsString(CommandSender commandSender, String... targetsAndReplacements) {
         checkNotNull(commandSender, "The command sender cannot be null");
-        return colorCodeSettings.apply(StringHelper.multiReplace(languageStore.getLanguage(commandSender).getTranslation(key)));
+        return colorCodeSettings.apply(StringHelper.multiReplace(languageStorage.getLanguage(commandSender).getTranslation(key)));
     }
 
     /**
@@ -77,6 +83,7 @@ public final class Translation {
      * @param commandSender          The command sender of which the language should be used and the message should be sent to
      * @param targetsAndReplacements The targets and replacements to use to substitute strings in this translation
      * @throws NullPointerException If commandSender is null
+     * @since 1.0.0
      */
     public void send(CommandSender commandSender, String... targetsAndReplacements) {
         checkNotNull(commandSender, "The command sender cannot be null")

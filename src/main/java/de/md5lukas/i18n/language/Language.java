@@ -25,6 +25,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A simple class to hold data about a language
+ *
+ * @author Lukas Planz
+ * @since 1.0.0
  */
 public final class Language {
 
@@ -37,6 +40,7 @@ public final class Language {
      * @param languageKey  The language key, e.g. <code>en</code> or <code>de</code>
      * @param translations The actual messages in key / value format
      * @throws NullPointerException If either the language key or the translations are null
+     * @since 1.0.0
      */
     public Language(String languageKey, Map<String, String> translations) {
         this.languageKey = checkNotNull(languageKey, "The language key cannot be null").toLowerCase();
@@ -45,6 +49,7 @@ public final class Language {
 
     /**
      * @return The language key
+     * @since 1.0.0
      */
     public String getLanguageKey() {
         return languageKey;
@@ -57,6 +62,7 @@ public final class Language {
      * @return The translation, or <code>null</code> if not present
      * @throws NullPointerException If the key is null
      * @see Map#get(Object)
+     * @since 1.0.0
      */
     public String getTranslation(String key) {
         return translations.get(checkNotNull(key, "The key to get the translation from cannot be null"));
@@ -67,6 +73,7 @@ public final class Language {
      *
      * @return The translation map
      * @see Collections#unmodifiableMap(Map)
+     * @since 1.0.0
      */
     public Map<String, String> getTranslations() {
         return translations;

@@ -22,6 +22,9 @@ import net.md_5.bungee.api.ChatColor;
 
 /**
  * Set settings for the color codes in translations
+ *
+ * @author Lukas Planz
+ * @since 1.0.0
  */
 public final class ColorCodeSettings {
 
@@ -36,6 +39,8 @@ public final class ColorCodeSettings {
      *     <li>enabled = true</li>
      *     <li>altColorChar = {@literal '&'}</li>
      * </ul>
+     *
+     * @since 1.0.0
      */
     public ColorCodeSettings() {
         enabled = true;
@@ -47,6 +52,7 @@ public final class ColorCodeSettings {
      *
      * @param enabled The new value
      * @return <code>this</code> for a builder like usage
+     * @since 1.0.0
      */
     public ColorCodeSettings setEnabled(boolean enabled) {
         this.enabled = enabled;
@@ -59,6 +65,7 @@ public final class ColorCodeSettings {
      * @param altColorChar The new value
      * @return <code>this</code> for a builder like usage
      * @see ChatColor#translateAlternateColorCodes(char, String)
+     * @since 1.0.0
      */
     public ColorCodeSettings setAltColorChar(char altColorChar) {
         this.altColorChar = altColorChar;

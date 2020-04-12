@@ -24,6 +24,9 @@ import com.google.common.base.Preconditions;
  * Simple wrapper class to allow specifying targets and replacements for both display name and description in a easy manner.
  * <br><br>
  * ItemTranslations<b>T</b>argets<b>A</b>nd<b>R</b>eplacements
+ *
+ * @author Lukas Planz
+ * @since 1.0.0
  */
 public final class ItemTranslationTAR {
 
@@ -31,6 +34,8 @@ public final class ItemTranslationTAR {
 
     /**
      * Create a new instance that is empty
+     *
+     * @since 1.0.0
      */
     public ItemTranslationTAR() {
         displayName = description = new String[] {};
@@ -41,6 +46,7 @@ public final class ItemTranslationTAR {
      *
      * @param targetsAndReplacements The new targets and replacements for the display name
      * @return <code>this</code> for a builder-like usage
+     * @since 1.0.0
      */
     public ItemTranslationTAR setDisplayName(String... targetsAndReplacements) {
         Preconditions.checkArgument(targetsAndReplacements.length % 2 != 0, "Every target sequence needs a replacement");
@@ -55,6 +61,7 @@ public final class ItemTranslationTAR {
      *
      * @param targetsAndReplacements The new targets and replacements for the description
      * @return <code>this</code> for a builder-like usage
+     * @since 1.0.0
      */
     public ItemTranslationTAR setDescription(String[] targetsAndReplacements) {
         Preconditions.checkArgument(targetsAndReplacements.length % 2 != 0, "Every target sequence needs a replacement");

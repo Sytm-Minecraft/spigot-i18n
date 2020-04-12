@@ -19,7 +19,7 @@
 package de.md5lukas.i18n.translations;
 
 import de.md5lukas.i18n.language.Language;
-import de.md5lukas.i18n.language.LanguageStore;
+import de.md5lukas.i18n.language.LanguageStorage;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -32,10 +32,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * A simple helper for translations as item stacks
+ *
+ * @author Lukas Planz
+ * @since 1.0.0
  */
 public final class ItemTranslation {
 
-    private final LanguageStore languageStore;
+    private final LanguageStorage languageStorage;
     private final Supplier<Material> materialSupplier;
     private final String displayNameKey;
     private final String descriptionKey;
@@ -45,16 +48,17 @@ public final class ItemTranslation {
     /**
      * Creates a new translation helper for item stacks using the language store, the material supplier and the keys for the configuration
      *
-     * @param languageStore     The language store to sue to retrieve the language data from
+     * @param languageStorage   The language store to sue to retrieve the language data from
      * @param materialSupplier  The material supplier that will provide that material in the case a new item stack should get created
      * @param displayNameKey    The key of the display name in the configs
      * @param descriptionKey    The key of the description in the configs
      * @param colorCodeSettings The color code settings to use for this translation
      * @throws NullPointerException If any of the parameters are null
+     * @since 1.0.0
      */
-    public ItemTranslation(LanguageStore languageStore, Supplier<Material> materialSupplier, String displayNameKey, String descriptionKey, ColorCodeSettings
+    public ItemTranslation(LanguageStorage languageStorage, Supplier<Material> materialSupplier, String displayNameKey, String descriptionKey, ColorCodeSettings
             colorCodeSettings) {
-        this.languageStore = checkNotNull(languageStore, "The language store cannot be null");
+        this.languageStorage = checkNotNull(languageStorage, "The language store cannot be null");
         this.materialSupplier = checkNotNull(materialSupplier, "The material supplier cannot be null");
         this.displayNameKey = checkNotNull(displayNameKey, "The display name key cannot be null");
         this.descriptionKey = checkNotNull(descriptionKey, "The description key cannot be null");
@@ -64,14 +68,15 @@ public final class ItemTranslation {
     /**
      * Creates a new translation helper for item stacks using the language store, the material supplier and the keys for the configuration
      *
-     * @param languageStore    The language store to sue to retrieve the language data from
+     * @param languageStorage  The language store to sue to retrieve the language data from
      * @param materialSupplier The material supplier that will provide that material in the case a new item stack should get created
      * @param displayNameKey   The key of the display name in the configs
      * @param descriptionKey   The key of the description in the configs
      * @throws NullPointerException If any of the parameters are null
+     * @since 1.0.0
      */
-    public ItemTranslation(LanguageStore languageStore, Supplier<Material> materialSupplier, String displayNameKey, String descriptionKey) {
-        this(languageStore, materialSupplier, displayNameKey, descriptionKey, ColorCodeSettings.DEFAULT);
+    public ItemTranslation(LanguageStorage languageStorage, Supplier<Material> materialSupplier, String displayNameKey, String descriptionKey) {
+        this(languageStorage, materialSupplier, displayNameKey, descriptionKey, ColorCodeSettings.DEFAULT);
     }
 
     /**
@@ -80,14 +85,15 @@ public final class ItemTranslation {
      * To get the keys for the display name and description, <code>.displayName</code> and <code>.description</code> are appended to the key
      * respectively to get the keys that are actually used.
      *
-     * @param languageStore     The language store to sue to retrieve the language data from
+     * @param languageStorage   The language store to sue to retrieve the language data from
      * @param materialSupplier  The material supplier that will provide that material in the case a new item stack should get created
      * @param key               The common key in the configs
      * @param colorCodeSettings The color code settings to use for this translation
      * @throws NullPointerException If any of the parameters are null
+     * @since 1.0.0
      */
-    public ItemTranslation(LanguageStore languageStore, Supplier<Material> materialSupplier, String key, ColorCodeSettings colorCodeSettings) {
-        this(languageStore, materialSupplier, checkNotNull(key, "The common key cannot be null") + ".displayName", key + ".description", colorCodeSettings);
+    public ItemTranslation(LanguageStorage languageStorage, Supplier<Material> materialSupplier, String key, ColorCodeSettings colorCodeSettings) {
+        this(languageStorage, materialSupplier, checkNotNull(key, "The common key cannot be null") + ".displayName", key + ".description", colorCodeSettings);
     }
 
     /**
@@ -96,13 +102,14 @@ public final class ItemTranslation {
      * To get the keys for the display name and description, <code>.displayName</code> and <code>.description</code> are appended to the key
      * respectively to get the keys that are actually used.
      *
-     * @param languageStore    The language store to sue to retrieve the language data from
+     * @param languageStorage  The language store to sue to retrieve the language data from
      * @param materialSupplier The material supplier that will provide that material in the case a new item stack should get created
      * @param key              The common key in the configs
      * @throws NullPointerException If any of the parameters are null
+     * @since 1.0.0
      */
-    public ItemTranslation(LanguageStore languageStore, Supplier<Material> materialSupplier, String key) {
-        this(languageStore, materialSupplier, key, ColorCodeSettings.DEFAULT);
+    public ItemTranslation(LanguageStorage languageStorage, Supplier<Material> materialSupplier, String key) {
+        this(languageStorage, materialSupplier, key, ColorCodeSettings.DEFAULT);
     }
 
     /**
@@ -110,6 +117,7 @@ public final class ItemTranslation {
      *
      * @param player The player to use the language from
      * @return A newly created item stack
+     * @since 1.0.0
      */
     public ItemStack getStack(Player player) {
         return getStack(player, null);
@@ -122,11 +130,12 @@ public final class ItemTranslation {
      * @param targetsAndReplacements The targets and replacements object containing both display name and description substitutions
      * @return A newly created item stack
      * @throws NullPointerException If player is null
+     * @since 1.0.0
      */
     public ItemStack getStack(Player player, ItemTranslationTAR targetsAndReplacements) {
         checkNotNull(player, "The player to get the stack for cannot be null");
 
-        Language language = languageStore.getLanguage(player);
+        Language language = languageStorage.getLanguage(player);
 
         ItemStack stack = new ItemStack(materialSupplier.get());
         ItemMeta meta = stack.getItemMeta();

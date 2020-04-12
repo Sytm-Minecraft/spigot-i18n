@@ -23,6 +23,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Wrapper class with a basic builder to provide settings to the message expander
+ *
+ * @author Lukas Planz
+ * @since 1.0.0
  */
 public final class TranslationExpanderSettings {
 
@@ -36,6 +39,8 @@ public final class TranslationExpanderSettings {
      *     <li>openingDelimiter = "${"</li>
      *     <li>closingDelimiter = "}"</li>
      * </ul>
+     *
+     * @since 1.0.0
      */
     public TranslationExpanderSettings() {
         variablePrefix = "variables.";
@@ -49,6 +54,7 @@ public final class TranslationExpanderSettings {
      * @param variablePrefix The new variable prefix
      * @return <code>this</code> for a builder-like usage
      * @throws IllegalArgumentException If the <code>variablePrefix</code> argument is <code>null</code> or blank
+     * @since 1.0.0
      */
     public TranslationExpanderSettings setVariablePrefix(String variablePrefix) {
         checkArgument(!checkNotNull(variablePrefix, "The new variablePrefix cannot be null!").trim().isEmpty(), "The new variablePrefix cannot be blank!");
@@ -63,6 +69,7 @@ public final class TranslationExpanderSettings {
      * @param openingDelimiter The new opening delimiter
      * @return <code>this</code> for a builder-like usage
      * @throws IllegalArgumentException If the <code>variablePrefix</code> argument is <code>null</code> or blank
+     * @since 1.0.0
      */
     public TranslationExpanderSettings setOpeningDelimiter(String openingDelimiter) {
         checkArgument(!checkNotNull(variablePrefix, "The new openingDelimiter cannot be null!").trim().isEmpty(), "The new openingDelimiter cannot be blank!");
@@ -77,6 +84,7 @@ public final class TranslationExpanderSettings {
      * @param closingDelimiter The new closing delimiter
      * @return <code>this</code> for a builder-like usage
      * @throws IllegalArgumentException If the <code>variablePrefix</code> argument is <code>null</code> or blank
+     * @since 1.0.0
      */
     public TranslationExpanderSettings setClosingDelimiter(String closingDelimiter) {
         checkArgument(!checkNotNull(variablePrefix, "The new vclosingDelimiter cannot be null!").trim().isEmpty(), "The new closingDelimiter cannot be blank!");
@@ -87,6 +95,7 @@ public final class TranslationExpanderSettings {
 
     /**
      * @return The current variable prefix
+     * @since 1.0.0
      */
     public String getVariablePrefix() {
         return variablePrefix;
@@ -94,6 +103,7 @@ public final class TranslationExpanderSettings {
 
     /**
      * @return The current opening delimiter
+     * @since 1.0.0
      */
     public String getOpeningDelimiter() {
         return openingDelimiter;
@@ -101,6 +111,7 @@ public final class TranslationExpanderSettings {
 
     /**
      * @return The current closing delimiter
+     * @since 1.0.0
      */
     public String getClosingDelimiter() {
         return closingDelimiter;

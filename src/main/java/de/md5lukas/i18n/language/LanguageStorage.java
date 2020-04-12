@@ -28,7 +28,13 @@ import java.util.Map;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public final class LanguageStore {
+/**
+ * This class is storage for languages that helps retrieving them based on players or the language keys
+ *
+ * @author Lukas Planz
+ * @since 1.0.0
+ */
+public final class LanguageStorage {
 
     private final String defaultLanguage;
     private final Map<String, Language> languages;
@@ -38,8 +44,9 @@ public final class LanguageStore {
      *
      * @param defaultLanguage The default language to use
      * @throws NullPointerException If the defaultLanguage is null
+     * @since 1.0.0
      */
-    public LanguageStore(String defaultLanguage) {
+    public LanguageStorage(String defaultLanguage) {
         this.defaultLanguage = checkNotNull(defaultLanguage, "The default language cannot be null");
 
         this.languages = new HashMap<>();
@@ -51,6 +58,7 @@ public final class LanguageStore {
      * @param newLanguages A list of the new languages that should be used
      * @throws NullPointerException     If the newLanguages are null
      * @throws IllegalArgumentException If the newLanguages do not contain the default language
+     * @since 1.0.0
      */
     public void setLanguages(List<Language> newLanguages) {
         checkNotNull(newLanguages, "The new languages to set cannot be null");
@@ -72,6 +80,7 @@ public final class LanguageStore {
      * Retrieves the default language from the store based on the language key provided at creation
      *
      * @return The default language
+     * @since 1.0.0
      */
     public Language getDefaultLanguage() {
         return languages.get(defaultLanguage);
@@ -84,6 +93,7 @@ public final class LanguageStore {
      *
      * @param key The key of the language
      * @return The language based on the input key
+     * @since 1.0.0
      */
     public Language getLanguage(String key) {
         if (key == null)
@@ -103,6 +113,7 @@ public final class LanguageStore {
      *
      * @param commandSender The command sender to get the language for
      * @return The language of the command sender or <code>null</code> if not present
+     * @since 1.0.0
      */
     public Language getLanguage(CommandSender commandSender) {
         if (commandSender instanceof Player) {
