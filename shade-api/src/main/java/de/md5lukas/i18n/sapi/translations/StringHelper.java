@@ -20,7 +20,7 @@ package de.md5lukas.i18n.sapi.translations;
 
 import com.google.common.base.Preconditions;
 
-class StringHelper {
+final class StringHelper {
 
     // TODO use method from commons library and update JavaDoc to explain it better
     static String multiReplace(String string, String... targetsAndReplacements) {

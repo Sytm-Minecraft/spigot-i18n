@@ -20,7 +20,6 @@ package de.md5lukas.i18n.sapi.translations;
 
 import de.md5lukas.i18n.sapi.language.Language;
 import de.md5lukas.i18n.sapi.language.LanguageStore;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -34,30 +33,45 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple helper for translations as item stacks
  */
-public class ItemTranslation {
+public final class ItemTranslation {
 
     private final LanguageStore languageStore;
     private final Supplier<Material> materialSupplier;
     private final String displayNameKey;
     private final String descriptionKey;
 
-    private char altColorChar = '&'; // TODO make customizable
+    private final ColorCodeSettings colorCodeSettings;
 
     /**
      * Creates a new translation helper for item stacks using the language store, the material supplier and the keys for the configuration
-     * <br><br>
-     * A {@link NullPointerException} is thrown if any of the parameters are null
+     *
+     * @param languageStore     The language store to sue to retrieve the language data from
+     * @param materialSupplier  The material supplier that will provide that material in the case a new item stack should get created
+     * @param displayNameKey    The key of the display name in the configs
+     * @param descriptionKey    The key of the description in the configs
+     * @param colorCodeSettings The color code settings to use for this translation
+     * @throws NullPointerException If any of the parameters are null
+     */
+    public ItemTranslation(LanguageStore languageStore, Supplier<Material> materialSupplier, String displayNameKey, String descriptionKey, ColorCodeSettings
+            colorCodeSettings) {
+        this.languageStore = checkNotNull(languageStore, "The language store cannot be null");
+        this.materialSupplier = checkNotNull(materialSupplier, "The material supplier cannot be null");
+        this.displayNameKey = checkNotNull(displayNameKey, "The display name key cannot be null");
+        this.descriptionKey = checkNotNull(descriptionKey, "The description key cannot be null");
+        this.colorCodeSettings = checkNotNull(colorCodeSettings, "The color code settings cannot be null");
+    }
+
+    /**
+     * Creates a new translation helper for item stacks using the language store, the material supplier and the keys for the configuration
      *
      * @param languageStore    The language store to sue to retrieve the language data from
      * @param materialSupplier The material supplier that will provide that material in the case a new item stack should get created
      * @param displayNameKey   The key of the display name in the configs
      * @param descriptionKey   The key of the description in the configs
+     * @throws NullPointerException If any of the parameters are null
      */
     public ItemTranslation(LanguageStore languageStore, Supplier<Material> materialSupplier, String displayNameKey, String descriptionKey) {
-        this.languageStore = checkNotNull(languageStore, "The language store cannot be null");
-        this.materialSupplier = checkNotNull(materialSupplier, "The material supplier cannot be null");
-        this.displayNameKey = checkNotNull(displayNameKey, "The display name key cannot be null");
-        this.descriptionKey = checkNotNull(descriptionKey, "The description key cannot be null");
+        this(languageStore, materialSupplier, displayNameKey, descriptionKey, ColorCodeSettings.DEFAULT);
     }
 
     /**
@@ -65,15 +79,30 @@ public class ItemTranslation {
      * <br>
      * To get the keys for the display name and description, <code>.displayName</code> and <code>.description</code> are appended to the key
      * respectively to get the keys that are actually used.
-     * <br><br>
-     * A {@link NullPointerException} is thrown if any of the parameters are null
+     *
+     * @param languageStore     The language store to sue to retrieve the language data from
+     * @param materialSupplier  The material supplier that will provide that material in the case a new item stack should get created
+     * @param key               The common key in the configs
+     * @param colorCodeSettings The color code settings to use for this translation
+     * @throws NullPointerException If any of the parameters are null
+     */
+    public ItemTranslation(LanguageStore languageStore, Supplier<Material> materialSupplier, String key, ColorCodeSettings colorCodeSettings) {
+        this(languageStore, materialSupplier, checkNotNull(key, "The common key cannot be null") + ".displayName", key + ".description", colorCodeSettings);
+    }
+
+    /**
+     * Creates a new translation helper for item stacks using the language store, the material supplier and the key for the configuration.
+     * <br>
+     * To get the keys for the display name and description, <code>.displayName</code> and <code>.description</code> are appended to the key
+     * respectively to get the keys that are actually used.
      *
      * @param languageStore    The language store to sue to retrieve the language data from
      * @param materialSupplier The material supplier that will provide that material in the case a new item stack should get created
      * @param key              The common key in the configs
+     * @throws NullPointerException If any of the parameters are null
      */
     public ItemTranslation(LanguageStore languageStore, Supplier<Material> materialSupplier, String key) {
-        this(languageStore, materialSupplier, checkNotNull(key, "The common key cannot be null") + ".displayName", key + ".description");
+        this(languageStore, materialSupplier, key, ColorCodeSettings.DEFAULT);
     }
 
     /**
@@ -112,14 +141,9 @@ public class ItemTranslation {
             descriptionTAR = targetsAndReplacements.getDescription();
         }
 
-        meta.setDisplayName(ChatColor.translateAlternateColorCodes(altColorChar,
-                StringHelper.multiReplace(displayName, displayNameTAR)));
+        meta.setDisplayName(colorCodeSettings.apply(StringHelper.multiReplace(displayName, displayNameTAR)));
 
-        meta.setLore(Arrays.asList(
-                ChatColor.translateAlternateColorCodes(altColorChar,
-                        StringHelper.multiReplace(description, descriptionTAR))
-                        .split("\\r?\\n", -1)
-        ));
+        meta.setLore(Arrays.asList(colorCodeSettings.apply(StringHelper.multiReplace(description, descriptionTAR)).split("\\r?\\n", -1)));
 
         stack.setItemMeta(meta);
         return stack;

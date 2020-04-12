@@ -26,28 +26,21 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * A simple class to hold data about a language
  */
-public class Language {
+public final class Language {
 
     private final String languageKey;
     private final Map<String, String> translations;
-    private final String nameInEnglish;
-    private final String nameInLanguage;
 
     /**
      * Creates a new language instance with the provided values
-     * <br><br>
-     * Throws {@link NullPointerException} if any of the parameters are null
      *
-     * @param languageKey    The language key, e.g. <code>en</code> or <code>de</code>
-     * @param translations   The actual messages in key / value format
-     * @param nameInEnglish  The name of the language in english, e.g. <code>German</code>
-     * @param nameInLanguage The name of the language in itself, e.g. <code>Deutsch</code>
+     * @param languageKey  The language key, e.g. <code>en</code> or <code>de</code>
+     * @param translations The actual messages in key / value format
+     * @throws NullPointerException If either the language key or the translations are null
      */
-    public Language(String languageKey, Map<String, String> translations, String nameInEnglish, String nameInLanguage) {
+    public Language(String languageKey, Map<String, String> translations) {
         this.languageKey = checkNotNull(languageKey, "The language key cannot be null").toLowerCase();
         this.translations = Collections.unmodifiableMap(checkNotNull(translations, "The translation map cannot be null"));
-        this.nameInEnglish = checkNotNull(nameInEnglish, "The language name in english cannot be null");
-        this.nameInLanguage = checkNotNull(nameInLanguage, "The language name in itself cannot be null");
     }
 
     /**
@@ -77,19 +70,5 @@ public class Language {
      */
     public Map<String, String> getTranslations() {
         return translations;
-    }
-
-    /**
-     * @return The name of the language in english
-     */
-    public String getNameInEnglish() {
-        return nameInEnglish;
-    }
-
-    /**
-     * @return The name of the language in itself
-     */
-    public String getNameInLanguage() {
-        return nameInLanguage;
     }
 }

@@ -19,29 +19,103 @@
 package de.md5lukas.i18n.sapi.language;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
-/**
- * Simple interface defining common methods for a language storage
- */
-public interface LanguageStore {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+public final class LanguageStore {
+
+    private final String defaultLanguage;
+    private final Map<String, Language> languages;
 
     /**
-     * Gets a language from the languages in this store based on the key of the language.
+     * Creates a new language store with the given default language.
+     *
+     * @throws NullPointerException If the defaultLanguage is null
+     */
+    public LanguageStore(String defaultLanguage) {
+        this.defaultLanguage = checkNotNull(defaultLanguage, "The default language cannot be null");
+
+        this.languages = new HashMap<>();
+    }
+
+    /**
+     * Overrides the old languages (if present) with the new languages in this language store
+     *
+     * @param newLanguages A list of the new languages that should be used
+     * @throws NullPointerException     If the newLanguages are null
+     * @throws IllegalArgumentException If the newLanguages do not contain the default language
+     */
+    public void setLanguages(List<Language> newLanguages) {
+        checkNotNull(newLanguages, "The new languages to set cannot be null");
+        // Check if any of the languages is null and if the default language is provided
+        boolean containsDefaultLanguage = false;
+        for (int index = 0; index < newLanguages.size(); index++) {
+            Language language = newLanguages.get(index);
+            checkNotNull(language, "The language at index %d is null", index);
+            if (defaultLanguage.equalsIgnoreCase(language.getLanguageKey()))
+                containsDefaultLanguage = true;
+        }
+        checkArgument(containsDefaultLanguage, "The newLanguages do not contain the default language");
+
+        languages.clear();
+        newLanguages.forEach(language -> languages.put(language.getLanguageKey(), language));
+    }
+
+    /**
+     * Retrieves the default language from the store based on the language key provided at creation
+     *
+     * @return The default language
+     */
+    public Language getDefaultLanguage() {
+        return languages.get(defaultLanguage);
+    }
+
+    /**
+     * Gets a language from the languages set via {@link #setLanguages(List)} based on the key provided
      * <br><br>
-     * This may vary based on the implementation.
+     * If the provided language is not available or the key null, the default language is returned
      *
      * @param key The key of the language
-     * @return An appropriate language that is in this store
+     * @return The language based on the input key
      */
-    Language getLanguage(String key);
+    public Language getLanguage(String key) {
+        if (key == null)
+            return getDefaultLanguage();
+        Language language = languages.get(trimLanguageKey(key));
+        if (language == null)
+            return languages.get(defaultLanguage);
+        return language;
+    }
 
     /**
-     * Gets a language from the languages in this store based on the preferences of the command sender.
+     * Gets a language from the languages set via {@link #setLanguages(List)} based on the command sender.
      * <br><br>
-     * This may vary based on the implementation.
+     * If the command sender is a {@link Player}, then {@link Player#getLocale()} is used to retrieve the locale of the player.
+     * <br>
+     * Otherwise the default language is returned
      *
-     * @param commandSender
-     * @return
+     * @param commandSender The command sender to get the language for
+     * @return The language of the command sender or <code>null</code> if not present
      */
-    Language getLanguage(CommandSender commandSender);
+    public Language getLanguage(CommandSender commandSender) {
+        if (commandSender instanceof Player) {
+            return getLanguage(((Player) commandSender).getLocale());
+        } else {
+            return getDefaultLanguage();
+        }
+    }
+
+    private String trimLanguageKey(String key) {
+        key = key.toLowerCase();
+        int index = key.indexOf('_');
+        if (index == -1)
+            return key;
+        return key.substring(0, index);
+    }
 }

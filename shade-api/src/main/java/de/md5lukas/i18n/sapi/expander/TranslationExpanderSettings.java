@@ -22,9 +22,9 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Simple wrapper class with basic builder to provide settings to the message expander
+ * Wrapper class with a basic builder to provide settings to the message expander
  */
-public class TranslationExpanderSettings {
+public final class TranslationExpanderSettings {
 
     private String variablePrefix, openingDelimiter, closingDelimiter;
 

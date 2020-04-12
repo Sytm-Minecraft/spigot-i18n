@@ -8,9 +8,11 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/api/pom.xml" />
         <option value="$PROJECT_DIR$/bungee-plugin/pom.xml" />
         <option value="$PROJECT_DIR$/bungee/pom.xml" />
         <option value="$PROJECT_DIR$/core/pom.xml" />
+        <option value="$PROJECT_DIR$/plugin/pom.xml" />
       </set>
     </option>
   </component>

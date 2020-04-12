@@ -19,7 +19,6 @@
 package de.md5lukas.i18n.sapi.translations;
 
 import de.md5lukas.i18n.sapi.language.LanguageStore;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -27,22 +26,36 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * Simple helper for translations as messages
  */
-public class Translation {
+public final class Translation {
 
     private final LanguageStore languageStore;
     private final String key;
 
-    private char altColorChar = '&'; // TODO make customizable
+    private final ColorCodeSettings colorCodeSettings;
+
+    /**
+     * Creates a new translation helper using the language store, the key in the configuration and color code settings
+     *
+     * @param languageStore     The language store to use to retrieve the language data from
+     * @param key               The key of this translation in the configs
+     * @param colorCodeSettings The color code settings to use for this translation
+     */
+    public Translation(LanguageStore languageStore, String key, ColorCodeSettings colorCodeSettings) {
+        this.languageStore = checkNotNull(languageStore, "The language store cannot be null");
+        this.key = checkNotNull(key, "The translation key cannot be null");
+        this.colorCodeSettings = checkNotNull(colorCodeSettings, "The color code settings cannot be null");
+    }
 
     /**
      * Creates a new translation helper using the language store and the key in the configuration
+     * <br><br>
+     * {@link ColorCodeSettings#ColorCodeSettings()} for default color code settings
      *
      * @param languageStore The language store to use to retrieve the language data from
      * @param key           The key of this translation in the configs
      */
     public Translation(LanguageStore languageStore, String key) {
-        this.languageStore = checkNotNull(languageStore, "The language store cannot be null");
-        this.key = checkNotNull(key, "The translation key cannot be null");
+        this(languageStore, key, ColorCodeSettings.DEFAULT);
     }
 
     /**
@@ -55,7 +68,7 @@ public class Translation {
      */
     public String getAsString(CommandSender commandSender, String... targetsAndReplacements) {
         checkNotNull(commandSender, "The command sender cannot be null");
-        return ChatColor.translateAlternateColorCodes(altColorChar, StringHelper.multiReplace(languageStore.getLanguage(commandSender).getTranslation(key)));
+        return colorCodeSettings.apply(StringHelper.multiReplace(languageStore.getLanguage(commandSender).getTranslation(key)));
     }
 
     /**
@@ -67,6 +80,6 @@ public class Translation {
      */
     public void send(CommandSender commandSender, String... targetsAndReplacements) {
         checkNotNull(commandSender, "The command sender cannot be null")
-                .sendMessage(ChatColor.translateAlternateColorCodes(altColorChar, getAsString(commandSender, targetsAndReplacements)));
+                .sendMessage(colorCodeSettings.apply(getAsString(commandSender, targetsAndReplacements)));
     }
 }

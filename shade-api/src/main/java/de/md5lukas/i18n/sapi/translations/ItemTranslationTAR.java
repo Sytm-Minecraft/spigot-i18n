@@ -25,7 +25,7 @@ import com.google.common.base.Preconditions;
  * <br><br>
  * ItemTranslations<b>T</b>argets<b>A</b>nd<b>R</b>eplacements
  */
-public class ItemTranslationTAR {
+public final class ItemTranslationTAR {
 
     private String[] displayName, description;
 
