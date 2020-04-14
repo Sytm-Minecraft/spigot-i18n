@@ -11,7 +11,7 @@ steps:
   - name: deploy
     image: maven:3-jdk-11
     commands:
-      - mvn deploy -B -s settings.xml
+      - mvn deploy -B -ntp -s settings.xml
 
 trigger:
   branch:
