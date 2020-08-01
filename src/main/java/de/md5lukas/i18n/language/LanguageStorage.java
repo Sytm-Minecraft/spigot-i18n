@@ -36,7 +36,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public final class LanguageStorage {
 
-    private final String defaultLanguage;
+    private String defaultLanguage;
     private final Map<String, Language> languages;
 
     /**
@@ -47,7 +47,7 @@ public final class LanguageStorage {
      * @since 1.0.0
      */
     public LanguageStorage(String defaultLanguage) {
-        this.defaultLanguage = checkNotNull(defaultLanguage, "The default language cannot be null");
+        setDefaultLanguage(defaultLanguage);
 
         this.languages = new HashMap<>();
     }
@@ -77,13 +77,23 @@ public final class LanguageStorage {
     }
 
     /**
-     * Retrieves the default language from the store based on the language key provided at creation
+     * Retrieves the default language that is used, if a player has selected an unknown language
      *
      * @return The default language
      * @since 1.0.0
      */
     public Language getDefaultLanguage() {
         return languages.get(defaultLanguage);
+    }
+
+    /**
+     * Updates the default language to the new value
+     *
+     * @param defaultLanguage The new default language
+     * @throws NullPointerException If the new default language is null
+     */
+    public void setDefaultLanguage(String defaultLanguage) {
+        this.defaultLanguage = checkNotNull(defaultLanguage, "The default language cannot be null");
     }
 
     /**
