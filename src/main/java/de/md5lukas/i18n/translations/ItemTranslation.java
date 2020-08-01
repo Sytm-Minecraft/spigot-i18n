@@ -152,7 +152,7 @@ public final class ItemTranslation {
 
         meta.setDisplayName(colorCodeSettings.apply(StringHelper.multiReplace(displayName, displayNameTAR)));
 
-        meta.setLore(Arrays.asList(colorCodeSettings.apply(StringHelper.multiReplace(description, descriptionTAR)).split("\\r?\\n", -1)));
+        meta.setLore(Arrays.asList(colorCodeSettings.apply(StringHelper.multiReplace(description, descriptionTAR)).split("\\r?\\n", 0)));
 
         stack.setItemMeta(meta);
         return stack;
