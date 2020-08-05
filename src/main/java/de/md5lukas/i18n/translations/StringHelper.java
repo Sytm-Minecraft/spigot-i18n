@@ -26,7 +26,7 @@ final class StringHelper {
     static String multiReplace(String string, String... targetsAndReplacements) {
         if (targetsAndReplacements.length == 0)
             return string;
-        Preconditions.checkArgument(targetsAndReplacements.length % 2 != 0, "Every target sequence needs a replacement");
+        Preconditions.checkArgument(targetsAndReplacements.length % 2 == 0, "Every target sequence needs a replacement");
 
         for (int index = 0; index < targetsAndReplacements.length; index += 2) {
             string = string.replace(targetsAndReplacements[index], targetsAndReplacements[index + 1]);

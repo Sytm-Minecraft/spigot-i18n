@@ -49,7 +49,7 @@ public final class ItemTranslationTAR {
      * @since 1.0.0
      */
     public ItemTranslationTAR setDisplayName(String... targetsAndReplacements) {
-        Preconditions.checkArgument(targetsAndReplacements.length % 2 != 0, "Every target sequence needs a replacement");
+        Preconditions.checkArgument(targetsAndReplacements.length % 2 == 0, "Every target sequence needs a replacement");
 
         this.displayName = targetsAndReplacements;
 
@@ -63,8 +63,8 @@ public final class ItemTranslationTAR {
      * @return <code>this</code> for a builder-like usage
      * @since 1.0.0
      */
-    public ItemTranslationTAR setDescription(String[] targetsAndReplacements) {
-        Preconditions.checkArgument(targetsAndReplacements.length % 2 != 0, "Every target sequence needs a replacement");
+    public ItemTranslationTAR setDescription(String... targetsAndReplacements) {
+        Preconditions.checkArgument(targetsAndReplacements.length % 2 == 0, "Every target sequence needs a replacement");
 
         this.description = targetsAndReplacements;
 
